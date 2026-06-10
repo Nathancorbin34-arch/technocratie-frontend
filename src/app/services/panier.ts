@@ -53,4 +53,8 @@ export class PanierService {
       return total + prix * i.quantite;
     }, 0);
   }
+
+  getItems(): PanierItem[] {
+    return [...this.items];
+  }
 }

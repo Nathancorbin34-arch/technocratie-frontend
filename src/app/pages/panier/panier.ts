@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { RouterLink, Router } from '@angular/router';
 import { PanierService, PanierItem } from '../../services/panier';
 
 @Component({
@@ -14,11 +13,10 @@ export class Panier implements OnInit {
 
   items: PanierItem[] = [];
   total = 0;
-  chargement = false;
 
   constructor(
     private panierService: PanierService,
-    private http: HttpClient
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -37,17 +35,6 @@ export class Panier implements OnInit {
   }
 
   passerCommande() {
-    this.chargement = true;
-    this.http.post<any>('http://localhost:3000/api/paiement/creer-session', {
-      items: this.items
-    }).subscribe({
-      next: (res) => {
-        window.location.href = res.url;
-      },
-      error: (err) => {
-        console.error('Erreur paiement:', err);
-        this.chargement = false;
-      }
-    });
+    this.router.navigate(['/personnalisation']);
   }
 }

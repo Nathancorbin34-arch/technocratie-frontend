@@ -1,0 +1,59 @@
+<div class="perso-page">
+  <div class="perso-container">
+
+    <div class="perso-header">
+      <h1 class="perso-titre">Personnalisation</h1>
+      <p class="perso-sub">Indique le surnom et le numéro pour chaque maillot</p>
+    </div>
+
+    @if (personnalisations.length > 1) {
+      <div class="appliquer-tous">
+        <p class="appliquer-label">Remplis le premier maillot et applique à tous</p>
+        <button class="btn-appliquer" (click)="appliquerPremierATous()">
+          Appliquer à tous les maillots →
+        </button>
+      </div>
+    }
+
+    <div class="perso-items">
+      @for (p of personnalisations; track p.item.id; let i = $index) {
+        <div class="perso-card">
+          <div class="perso-card-header">
+            <img [src]="p.item.image" [alt]="p.item.nom" class="perso-img" />
+            <div class="perso-card-info">
+              <h3>{{ p.item.nom }}</h3>
+              <p class="perso-taille">Taille : {{ p.item.taille }}</p>
+              <p class="perso-prix">{{ p.item.prix }}</p>
+            </div>
+          </div>
+          <div class="perso-fields">
+            <div class="perso-field">
+              <label>Surnom sur le maillot</label>
+              <input
+                type="text"
+                placeholder="ex: JEAN"
+                [(ngModel)]="p.surnom"
+                maxlength="12" />
+            </div>
+            <div class="perso-field">
+              <label>Numéro</label>
+              <input
+                type="text"
+                placeholder="ex: 14"
+                 [value]="p.numero"
+                  (input)="validerNumero(i, $event)"
+                 maxlength="2" />
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="perso-footer">
+      <button class="btn-payer" (click)="passerAuPaiement()" [disabled]="chargement">
+        {{ chargement ? 'Redirection...' : 'Passer au paiement →' }}
+      </button>
+    </div>
+
+  </div>
+</div>

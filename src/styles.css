@@ -1,45 +1,56 @@
-/* ===== TECHNOCRATIE — Styles globaux ===== */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 :root {
-  --noir:        #0D0D0D;
-  --violet:      #7B2FFF;
-  --cyan:        #00E5FF;
-  --blanc:       #F0F0F0;
-  --bleu-nuit:   #1A1A2E;
-  --gris-sombre: #2A2A3E;
-
-  --font-titre:  'Orbitron', sans-serif;
-  --font-sub:    'Rajdhani', sans-serif;
-  --font-body:   'Inter', sans-serif;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --purple-core:  #7a3cff;
+  --purple-light: #9e68ff;
+  --purple-pale:  #b892ff;
+  --glass-border: rgba(255,255,255,0.08);
+  --text-secondary: rgba(255,255,255,0.62);
+  --text-muted: rgba(255,255,255,0.38);
+  --bg-deep: #030305;
+  --bg-card: rgba(12,11,18,0.96);
+  --noir: #030305;
+  --violet: #7a3cff;
+  --cyan: #b892ff;
+  --blanc: #ffffff;
+  --bleu-nuit: rgba(12,11,18,0.96);
+  --font-titre: 'Bebas Neue', sans-serif;
+  --font-sub: 'DM Mono', monospace;
+  --font-body: 'Syne', sans-serif;
 }
 
 body {
-  background-color: var(--noir);
-  color: var(--blanc);
-  font-family: var(--font-body);
-  min-height: 100vh;
+  font-family: 'Syne', sans-serif;
+  background: var(--bg-deep);
+  color: white;
+  overflow-x: hidden;
 }
 
-.app-container {
-  min-height: 100vh;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.55;
 }
 
-a {
-  color: var(--cyan);
-  text-decoration: none;
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 55% at 15% 10%, rgba(122,60,255,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 80%, rgba(90,20,200,0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-a:hover {
-  color: var(--violet);
-}
-
-button {
-  cursor: pointer;
-  font-family: var(--font-body);
-}
+.app-container { min-height: 100vh; }
+a { color: var(--purple-pale); text-decoration: none; }
+a:hover { color: white; }
+button { cursor: pointer; font-family: 'Syne', sans-serif; }

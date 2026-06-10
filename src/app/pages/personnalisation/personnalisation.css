@@ -1,0 +1,202 @@
+.perso-page {
+  min-height: 100vh;
+  background: var(--bg-deep);
+  padding: 6rem 2rem 2rem;
+}
+
+.perso-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.perso-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.perso-titre {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 5px;
+  background: linear-gradient(135deg, #ffffff 40%, rgba(184,146,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.perso-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.appliquer-tous {
+  background: rgba(122,60,255,0.08);
+  border: 1px solid rgba(122,60,255,0.2);
+  border-radius: 14px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.appliquer-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.btn-appliquer {
+  background: rgba(122,60,255,0.2);
+  border: 1px solid rgba(122,60,255,0.4);
+  color: var(--purple-pale);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-appliquer:hover {
+  background: rgba(122,60,255,0.35);
+  color: white;
+}
+
+.perso-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.perso-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.perso-card-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.perso-img {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.perso-card-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #fff, rgba(220,200,255,0.85));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+.perso-taille {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.perso-prix {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--purple-pale);
+}
+
+.perso-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.perso-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.perso-field label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.perso-field input {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: white;
+  padding: 11px 14px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.perso-field input:focus {
+  border-color: rgba(122,60,255,0.6);
+  box-shadow: 0 0 0 3px rgba(122,60,255,0.1);
+}
+
+.perso-field input::placeholder {
+  color: var(--text-muted);
+}
+
+.perso-footer {
+  text-align: center;
+}
+
+.btn-payer {
+  background: linear-gradient(135deg, var(--purple-core), var(--purple-light));
+  border: none;
+  color: white;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 16px 48px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  box-shadow: 0 8px 28px rgba(122,60,255,0.25);
+}
+
+.btn-payer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(122,60,255,0.38);
+}
+
+.btn-payer:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
