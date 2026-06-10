@@ -238,4 +238,34 @@
 .btn-commander:hover {
   background: var(--violet);
   color: var(--blanc);
+}/* ===== TAILLES ===== */
+.tailles {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0.5rem 0;
+}
+
+.taille-btn {
+  background: transparent;
+  border: 1px solid rgba(123, 47, 255, 0.3);
+  color: rgba(240, 240, 240, 0.6);
+  font-family: var(--font-sub);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.taille-btn:hover {
+  border-color: var(--violet);
+  color: var(--blanc);
+}
+
+.taille-btn.active {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: var(--blanc);
 }

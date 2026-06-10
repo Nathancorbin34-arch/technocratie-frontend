@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-connexion',
@@ -23,11 +25,48 @@ export class Connexion {
   ville = '';
   password = '';
 
+  messageErreur = '';
+  messageSucces = '';
+
+  constructor(private http: HttpClient, private router: Router) {}
+
   seConnecter() {
-    console.log('Connexion:', this.loginEmail);
+    this.messageErreur = '';
+    this.http.post<any>('http://localhost:3000/api/auth/connexion', {
+      email: this.loginEmail,
+      mot_de_passe: this.loginPassword
+    }).subscribe({
+      next: (res) => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('client', JSON.stringify(res.client));
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.messageErreur = err.error.message || 'Erreur de connexion';
+      }
+    });
   }
 
   sInscrire() {
-    console.log('Inscription:', this.email);
+    this.messageErreur = '';
+    this.http.post<any>('http://localhost:3000/api/auth/inscription', {
+      prenom: this.prenom,
+      nom: this.nom,
+      email: this.email,
+      telephone: this.tel,
+      adresse: this.adresse,
+      code_postal: this.cp,
+      ville: this.ville,
+      mot_de_passe: this.password
+    }).subscribe({
+      next: (res) => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('client', JSON.stringify(res.client));
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.messageErreur = err.error.message || 'Erreur lors de la création du compte';
+      }
+    });
   }
 }

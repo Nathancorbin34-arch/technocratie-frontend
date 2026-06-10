@@ -8,15 +8,21 @@
 
     <ul class="nav-links">
       <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Collection</a></li>
-      <li><a routerLink="/connexion" routerLinkActive="active">Connexion</a></li>
+      @if (!client) {
+        <li><a routerLink="/connexion" routerLinkActive="active">Connexion</a></li>
+      }
+      @if (client) {
+        <li class="nav-client">
+          <span class="client-nom">👤 {{ client.prenom }}</span>
+          <button class="btn-deconnexion" (click)="seDeconnecter()">Déconnexion</button>
+        </li>
+      }
     </ul>
 
-    <div class="nav-actions">
-      <a routerLink="/panier" class="nav-panier">
-        <span class="panier-icon">🛒</span>
-        <span class="panier-count">0</span>
-      </a>
-    </div>
+    <a routerLink="/panier" class="nav-panier">
+      <span class="panier-icon">🛒</span>
+      <span class="panier-count">{{ panierService.getNombreItems() }}</span>
+    </a>
 
   </div>
 </nav>

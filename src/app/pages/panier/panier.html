@@ -1,0 +1,45 @@
+<div class="panier-page">
+  <div class="panier-container">
+
+    <div class="panier-header">
+      <h1 class="panier-titre">Mon Panier</h1>
+      <a routerLink="/" class="btn-retour">← Continuer mes achats</a>
+    </div>
+
+    <div class="panier-vide" *ngIf="items.length === 0">
+      <p>Ton panier est vide</p>
+      <a routerLink="/" class="btn-primary">Voir la collection</a>
+    </div>
+
+    <div class="panier-content" *ngIf="items.length > 0">
+
+      <div class="panier-items">
+        <div class="panier-item" *ngFor="let item of items">
+          <img [src]="item.image" [alt]="item.nom" class="item-image" />
+          <div class="item-info">
+            <h3>{{ item.nom }}</h3>
+            <p class="item-taille">Taille : {{ item.taille }}</p>
+            <p class="item-prix">{{ item.prix }}</p>
+          </div>
+          <div class="item-actions">
+            <span class="item-qte">x{{ item.quantite }}</span>
+            <button class="btn-supprimer" (click)="supprimer(item.id, item.taille)">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panier-recap">
+        <div class="recap-total">
+          <span>Total</span>
+          <span class="total-prix">{{ total.toFixed(2) }} €</span>
+        </div>
+       <button class="btn-commander-full" (click)="passerCommande()" [disabled]="chargement">
+  {{ chargement ? 'Redirection...' : 'Passer la commande →' }}
+</button>
+        <button class="btn-vider" (click)="vider()">Vider le panier</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

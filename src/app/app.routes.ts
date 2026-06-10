@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
 import { Accueil } from './pages/accueil/accueil';
 import { Connexion } from './pages/connexion/connexion';
+import { Panier } from './pages/panier/panier';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: Accueil },
   { path: 'connexion', component: Connexion },
+  { path: 'panier', component: Panier, canActivate: [authGuard] },
 ];
