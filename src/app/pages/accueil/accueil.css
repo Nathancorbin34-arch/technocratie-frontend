@@ -1,0 +1,241 @@
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  background: var(--noir);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 2rem;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #1a0a2e 0%, #0D0D0D 70%);
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-top {
+  font-family: var(--font-sub);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1rem;
+}
+
+.hero-titre {
+  font-family: var(--font-titre);
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 900;
+  color: var(--blanc);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 40px rgba(123, 47, 255, 0.5);
+}
+
+.hero-signature {
+  font-family: var(--font-sub);
+  font-size: 1.1rem;
+  color: var(--blanc);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.hero-signature span {
+  color: var(--violet);
+  font-weight: 700;
+}
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--blanc);
+  opacity: 0.5;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.05em;
+}
+
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-sub);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blanc);
+  background: var(--violet);
+  padding: 0.9rem 2.5rem;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--cyan);
+  color: var(--noir);
+  transform: translateY(-2px);
+}
+
+/* ===== COLLECTION ===== */
+.collection {
+  padding: 5rem 2rem;
+  background: var(--noir);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-label {
+  font-family: var(--font-sub);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.5rem;
+}
+
+.section-titre {
+  font-family: var(--font-titre);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--blanc);
+  letter-spacing: 0.1em;
+}
+
+/* ===== GRILLE PRODUITS ===== */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: var(--bleu-nuit);
+  border: 1px solid rgba(123, 47, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--violet);
+}
+
+/* ===== SLIDER ===== */
+.product-slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #111;
+}
+
+.product-track {
+  width: 100%;
+  height: 100%;
+}
+
+.product-track img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(0,0,0,0.6);
+  color: var(--blanc);
+  border: none;
+  font-size: 1.8rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.arrow:hover {
+  background: var(--violet);
+}
+
+.arrow-left { left: 8px; }
+.arrow-right { right: 8px; }
+
+.badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: var(--violet);
+  color: var(--blanc);
+  font-family: var(--font-sub);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+
+/* ===== INFO PRODUIT ===== */
+.product-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.product-info h3 {
+  font-family: var(--font-sub);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blanc);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.prix {
+  font-family: var(--font-titre);
+  font-size: 1.2rem;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.btn-commander {
+  margin-top: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--violet);
+  color: var(--violet);
+  font-family: var(--font-sub);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.7rem;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.btn-commander:hover {
+  background: var(--violet);
+  color: var(--blanc);
+}

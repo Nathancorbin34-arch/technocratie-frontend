@@ -1,0 +1,89 @@
+<header class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-top">Collection officielle</p>
+    <h1 class="hero-titre">TECHNOCRATIE</h1>
+    <p class="hero-signature">by <span>Jf &amp; Sono</span></p>
+    <p class="hero-sub">Streetwear futuriste · identité brute · pièces visuelles</p>
+    <a href="#collection" class="btn-primary">Voir la collection</a>
+  </div>
+</header>
+
+<section id="collection" class="collection">
+  <div class="section-header">
+    <p class="section-label">Drop actuel</p>
+    <h2 class="section-titre">La collection</h2>
+  </div>
+
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-slider">
+        <button class="arrow arrow-left" (click)="prevImage(0)">&#8249;</button>
+        <div class="product-track">
+          <img [src]="products[0].images[activeImages[0]]"
+               [alt]="products[0].nom + ' - ' + (activeImages[0] === 0 ? 'face' : 'dos')" />
+        </div>
+        <button class="arrow arrow-right" (click)="nextImage(0)">&#8250;</button>
+        <span class="badge">{{ activeImages[0] === 0 ? 'Face' : 'Dos' }}</span>
+      </div>
+      <div class="product-info">
+        <h3>{{ products[0].nom }}</h3>
+        <p class="prix">{{ products[0].prix }}</p>
+        <button class="btn-commander">Commander</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-slider">
+        <button class="arrow arrow-left" (click)="prevImage(1)">&#8249;</button>
+        <div class="product-track">
+          <img [src]="products[1].images[activeImages[1]]"
+               [alt]="products[1].nom + ' - ' + (activeImages[1] === 0 ? 'face' : 'dos')" />
+        </div>
+        <button class="arrow arrow-right" (click)="nextImage(1)">&#8250;</button>
+        <span class="badge">{{ activeImages[1] === 0 ? 'Face' : 'Dos' }}</span>
+      </div>
+      <div class="product-info">
+        <h3>{{ products[1].nom }}</h3>
+        <p class="prix">{{ products[1].prix }}</p>
+        <button class="btn-commander">Commander</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-slider">
+        <button class="arrow arrow-left" (click)="prevImage(2)">&#8249;</button>
+        <div class="product-track">
+          <img [src]="products[2].images[activeImages[2]]"
+               [alt]="products[2].nom + ' - ' + (activeImages[2] === 0 ? 'face' : 'dos')" />
+        </div>
+        <button class="arrow arrow-right" (click)="nextImage(2)">&#8250;</button>
+        <span class="badge">{{ activeImages[2] === 0 ? 'Face' : 'Dos' }}</span>
+      </div>
+      <div class="product-info">
+        <h3>{{ products[2].nom }}</h3>
+        <p class="prix">{{ products[2].prix }}</p>
+        <button class="btn-commander">Commander</button>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-slider">
+        <button class="arrow arrow-left" (click)="prevImage(3)">&#8249;</button>
+        <div class="product-track">
+          <img [src]="products[3].images[activeImages[3]]"
+               [alt]="products[3].nom + ' - ' + (activeImages[3] === 0 ? 'face' : 'dos')" />
+        </div>
+        <button class="arrow arrow-right" (click)="nextImage(3)">&#8250;</button>
+        <span class="badge">{{ activeImages[3] === 0 ? 'Face' : 'Dos' }}</span>
+      </div>
+      <div class="product-info">
+        <h3>{{ products[3].nom }}</h3>
+        <p class="prix">{{ products[3].prix }}</p>
+        <button class="btn-commander">Commander</button>
+      </div>
+    </div>
+
+  </div>
+</section>
