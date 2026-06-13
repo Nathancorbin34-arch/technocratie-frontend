@@ -1,0 +1,80 @@
+<div class="admin-page">
+  <div class="admin-container">
+
+    <div class="admin-header">
+      <h1 class="admin-titre">ESPACE ADMIN</h1>
+      <p class="admin-sub">Technocratie — Tableau de bord</p>
+    </div>
+
+    <!-- Stats rapides -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <p class="stat-label">Commandes</p>
+        <p class="stat-value">{{ stats.totalCommandes || 0 }}</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Clients</p>
+        <p class="stat-value">{{ stats.totalClients || 0 }}</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Chiffre d'affaires</p>
+        <p class="stat-value">{{ (stats.chiffreAffaires || 0).toFixed(2) }} €</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Maillots vendus</p>
+        <p class="stat-value">{{ stats.maillotsVendus || 0 }}</p>
+      </div>
+    </div>
+
+    <!-- Onglets -->
+    <div class="admin-tabs">
+      <button class="admin-tab" [class.active]="onglet === 'commandes'" (click)="onglet = 'commandes'">Commandes</button>
+      <button class="admin-tab" [class.active]="onglet === 'clients'" (click)="onglet = 'clients'">Clients</button>
+    </div>
+
+    <!-- Commandes -->
+    @if (onglet === 'commandes') {
+      <div class="admin-table-container">
+        @if (commandes.length === 0) {
+          <p class="empty-msg">Aucune commande pour le moment</p>
+        }
+        @for (commande of commandes; track commande.id) {
+          <div class="commande-card">
+            <div class="commande-header">
+              <span class="commande-id">#{{ commande.id }}</span>
+              <span class="commande-date">{{ commande.date_commande | date:'dd/MM/yyyy HH:mm' }}</span>
+              <span class="commande-statut" [class]="commande.statut">{{ commande.statut }}</span>
+              <span class="commande-total">{{ commande.total }} €</span>
+            </div>
+            <div class="commande-client">
+              👤 {{ commande.prenom }} {{ commande.nom }} — {{ commande.email }}
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Clients -->
+    @if (onglet === 'clients') {
+      <div class="admin-table-container">
+        @if (clients.length === 0) {
+          <p class="empty-msg">Aucun client inscrit</p>
+        }
+        @for (client of clients; track client.id) {
+          <div class="client-card">
+            <div class="client-info">
+              <span class="client-nom">{{ client.prenom }} {{ client.nom }}</span>
+              <span class="client-email">{{ client.email }}</span>
+            </div>
+            <div class="client-meta">
+              <span>📱 {{ client.telephone }}</span>
+              <span>📍 {{ client.ville }}</span>
+              <span class="client-date">Inscrit le {{ client.date_inscription | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</div>
