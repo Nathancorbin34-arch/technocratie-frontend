@@ -35,11 +35,17 @@ export class Personnalisation implements OnInit {
       this.router.navigate(['/panier']);
       return;
     }
-    this.personnalisations = items.map((item: PanierItem) => ({
-      item,
-      surnom: '',
-      numero: ''
-    }));
+    const expanded: PersonnalisationItem[] = [];
+    items.forEach((item: PanierItem) => {
+      for (let i = 0; i < item.quantite; i++) {
+        expanded.push({
+          item: { ...item, quantite: 1 },
+          surnom: '',
+          numero: ''
+        });
+      }
+    });
+    this.personnalisations = expanded;
   }
 
   appliquerPremierATous() {
@@ -53,13 +59,13 @@ export class Personnalisation implements OnInit {
   }
 
   validerNumero(index: number, event: any) {
-  let val = event.target.value.replace(/[^0-9]/g, '');
-  if (val.length > 2) val = val.slice(0, 2);
-  const num = parseInt(val);
-  if (!isNaN(num) && num > 99) val = '99';
-  this.personnalisations[index].numero = val;
-  event.target.value = val;
-}
+    let val = event.target.value.replace(/[^0-9]/g, '');
+    if (val.length > 2) val = val.slice(0, 2);
+    const num = parseInt(val);
+    if (!isNaN(num) && num > 99) val = '99';
+    this.personnalisations[index].numero = val;
+    event.target.value = val;
+  }
 
   passerAuPaiement() {
     this.chargement = true;

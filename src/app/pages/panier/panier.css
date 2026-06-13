@@ -224,3 +224,32 @@
   color: #ff3232;
   border-color: #ff3232;
 }
+@media (max-width: 768px) {
+  .panier-page {
+    padding: 5rem 1rem 2rem;
+  }
+
+  .panier-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .panier-titre {
+    font-size: 1.5rem;
+  }
+
+  .panier-content {
+    grid-template-columns: 1fr;
+  }
+
+  .panier-recap {
+    order: -1;
+  }
+
+  .item-image {
+    width: 60px;
+    height: 75px;
+  }
+}

@@ -154,3 +154,16 @@
   cursor: pointer;
   text-decoration: underline;
 }
+@media (max-width: 768px) {
+  .connexion-page {
+    padding: 5rem 1rem 1rem;
+  }
+
+  .connexion-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
