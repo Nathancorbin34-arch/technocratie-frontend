@@ -26,7 +26,11 @@
       <div class="product-card visible">
         <div class="product-image-slider">
           <button class="slider-arrow slider-arrow-left" (click)="prevImage(i)">&#8249;</button>
-          <div class="product-image-track">
+        <div class="product-image-track"
+     (touchstart)="onTouchStart($event, i)"
+     (touchend)="onTouchEnd($event, i)">
+  <img [src]="product.images[0]" [alt]="product.nom" class="main-product-image" />
+  <img [src]="product.images[1]" [alt]="product.nom" class="main-product-image" />
             <img [src]="product.images[activeImages[i]]" [alt]="product.nom" class="main-product-image" />
           </div>
           <button class="slider-arrow slider-arrow-right" (click)="nextImage(i)">&#8250;</button>
