@@ -389,3 +389,71 @@ button { cursor: pointer; font-family: 'Syne', sans-serif; }
 }
 
 .product-button:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(122,60,255,0.38); }
+/* ─── RESPONSIVE MOBILE ─── */
+@media (max-width: 768px) {
+
+  .hero {
+    height: 100dvh;
+    min-height: 100dvh;
+    padding-top: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-content {
+    margin-top: -100px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 14vw, 80px);
+    letter-spacing: 2px;
+  }
+
+  .top-text {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .hero-logo-glow {
+    width: 150vw;
+    height: auto;
+    opacity: 0.00;
+  }
+
+  .hero-button {
+    padding: 12px 24px;
+    font-size: 10px;
+  }
+
+  .collection {
+    padding: 60px 16px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .product-info h3 {
+    font-size: 0.85rem;
+  }
+
+  .product-info {
+    padding: 10px;
+  }
+
+  .taille-btn {
+    padding: 3px 6px;
+    font-size: 8px;
+  }
+
+  .product-button {
+    padding: 8px;
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+}

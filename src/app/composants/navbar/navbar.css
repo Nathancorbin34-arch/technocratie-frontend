@@ -78,3 +78,43 @@
   width: 20px; height: 20px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
 }
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0 1rem;
+    height: 56px;
+  }
+
+  .logo-nom {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+
+  .logo-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .nav-links a {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .client-nom {
+    display: none;
+  }
+
+  .btn-deconnexion {
+    font-size: 8px;
+    padding: 4px 8px;
+  }
+
+  .panier-count {
+    width: 16px;
+    height: 16px;
+    font-size: 8px;
+  }
+}
