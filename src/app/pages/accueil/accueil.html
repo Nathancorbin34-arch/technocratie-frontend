@@ -1,52 +1,46 @@
 <header class="hero">
-  <div class="hero-overlay"></div>
+  <div class="overlay"></div>
+  <div class="hero-grid"></div>
   <div class="hero-content">
-    <p class="hero-top">Collection officielle</p>
-    <h1 class="hero-titre">TECHNOCRATIE</h1>
+    <p class="top-text">Collection officielle</p>
+    <h1>TECHNOCRATIE</h1>
     <p class="hero-signature">by <span>Jf &amp; Sono</span></p>
-    <p class="hero-sub">Streetwear futuriste · identité brute · pièces visuelles</p>
-    <a href="#collection" class="btn-primary">Voir la collection</a>
+    <p class="subtitle">Streetwear futuriste · identité brute · pièces visuelles</p>
+    <a href="#collection" class="hero-button">Voir la collection</a>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
   </div>
 </header>
 
 <section id="collection" class="collection">
-  <div class="section-header">
-    <p class="section-label">Drop actuel</p>
-    <h2 class="section-titre">La collection</h2>
+  <div class="section-title visible">
+    <p>Drop actuel</p>
+    <h2>La collection</h2>
   </div>
 
   <div class="products-grid">
-
     @for (product of products; track product.id; let i = $index) {
-      <div class="product-card">
-        <div class="product-slider">
-          <button class="arrow arrow-left" (click)="prevImage(i)">&#8249;</button>
-          <div class="product-track">
-            <img [src]="product.images[activeImages[i]]"
-                 [alt]="product.nom" />
+      <div class="product-card visible">
+        <div class="product-image-slider">
+          <button class="slider-arrow slider-arrow-left" (click)="prevImage(i)">&#8249;</button>
+          <div class="product-image-track">
+            <img [src]="product.images[activeImages[i]]" [alt]="product.nom" class="main-product-image" />
           </div>
-          <button class="arrow arrow-right" (click)="nextImage(i)">&#8250;</button>
-          <span class="badge">{{ activeImages[i] === 0 ? 'Face' : 'Dos' }}</span>
+          <button class="slider-arrow slider-arrow-right" (click)="nextImage(i)">&#8250;</button>
+          <div class="product-badges"><span>{{ activeImages[i] === 0 ? 'Face' : 'Dos' }}</span></div>
         </div>
         <div class="product-info">
           <h3>{{ product.nom }}</h3>
-          <p class="prix">{{ product.prix }}</p>
+          <p class="price">{{ product.prix }}</p>
           <div class="tailles">
             @for (taille of tailles; track taille) {
-              <button
-                class="taille-btn"
-                [class.active]="product.tailleSelectionnee === taille"
-                (click)="selectionnerTaille(i, taille)">
-                {{ taille }}
-              </button>
+              <button class="taille-btn" [class.active]="product.tailleSelectionnee === taille" (click)="selectionnerTaille(i, taille)">{{ taille }}</button>
             }
           </div>
-          <button class="btn-commander" (click)="ajouterAuPanier(i)">
-            Ajouter au panier
-          </button>
+          <button class="product-button" (click)="ajouterAuPanier(i)">Ajouter au panier</button>
         </div>
       </div>
     }
-
   </div>
 </section>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-connexion',
@@ -26,9 +27,12 @@ export class Connexion {
   password = '';
 
   messageErreur = '';
-  messageSucces = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   seConnecter() {
     this.messageErreur = '';
@@ -37,8 +41,7 @@ export class Connexion {
       mot_de_passe: this.loginPassword
     }).subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('client', JSON.stringify(res.client));
+        this.authService.setClient(res.client, res.token);
         this.router.navigate(['/']);
       },
       error: (err) => {
@@ -60,8 +63,7 @@ export class Connexion {
       mot_de_passe: this.password
     }).subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('client', JSON.stringify(res.client));
+        this.authService.setClient(res.client, res.token);
         this.router.navigate(['/']);
       },
       error: (err) => {

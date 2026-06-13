@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PanierService } from '../../services/panier';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -15,20 +16,18 @@ export class Navbar implements OnInit {
 
   constructor(
     public panierService: PanierService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
-    const clientStr = localStorage.getItem('client');
-    if (clientStr) {
-      this.client = JSON.parse(clientStr);
-    }
+    this.authService.client$.subscribe(client => {
+      this.client = client;
+    });
   }
 
   seDeconnecter() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('client');
-    this.client = null;
+    this.authService.deconnecter();
     this.router.navigate(['/']);
   }
 }
