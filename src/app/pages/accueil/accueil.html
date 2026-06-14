@@ -56,7 +56,11 @@
           @if (!product.tailleSelectionnee) {
             <p class="taille-warning">Sélectionne une taille</p>
           }
-          <button class="product-button" (click)="ajouterAuPanier(i)">Ajouter au panier</button>
+         @if (commandesOuvertes) {
+  <button class="product-button" (click)="ajouterAuPanier(i)">Ajouter au panier</button>
+} @else {
+  <button class="product-button product-button-ferme" disabled>Commandes fermées</button>
+}
         </div>
       </div>
     }

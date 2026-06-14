@@ -2,6 +2,18 @@
   <div class="admin-container">
 
     <div class="admin-header">
+      <!-- Bouton ouverture/fermeture commandes -->
+<div class="commandes-toggle">
+  <div class="toggle-info">
+    <p class="toggle-label">Statut des commandes</p>
+    <p class="toggle-status" [class.ouvert]="commandesOuvertes" [class.ferme]="!commandesOuvertes">
+      {{ commandesOuvertes ? '🟢 Commandes ouvertes' : '🔴 Commandes fermées' }}
+    </p>
+  </div>
+  <button class="btn-toggle" [class.btn-fermer]="commandesOuvertes" [class.btn-ouvrir]="!commandesOuvertes" (click)="toggleCommandes()">
+    {{ commandesOuvertes ? 'Fermer les commandes' : 'Ouvrir les commandes' }}
+  </button>
+</div>
       <h1 class="admin-titre">ESPACE ADMIN</h1>
       <p class="admin-sub">Technocratie — Tableau de bord</p>
     </div>

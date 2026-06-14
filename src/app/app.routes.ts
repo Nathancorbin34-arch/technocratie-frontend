@@ -7,6 +7,7 @@ import { Admin } from './pages/admin/admin';
 import { CommandeConfirmee } from './pages/commande-confirmee/commande-confirmee';
 import { authGuard } from './guards/auth-guard';
 import { adminGuard } from './guards/admin-guard';
+import { CommandesFermees } from './pages/commandes-fermees/commandes-fermees';
 
 export const routes: Routes = [
   { path: '', component: Accueil },
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: 'personnalisation', component: Personnalisation, canActivate: [authGuard] },
   { path: 'admin', component: Admin, canActivate: [adminGuard] },
   { path: 'commande-confirmee', component: CommandeConfirmee },
+  { path: 'commandes-fermees', component: CommandesFermees },
 ];

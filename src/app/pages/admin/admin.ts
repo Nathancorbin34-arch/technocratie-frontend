@@ -18,6 +18,7 @@ export class Admin implements OnInit {
   stats: any = {};
   stocks: any[] = [];
   chargement = false;
+  commandesOuvertes = true;
 
   private apiUrl = environment.apiUrl;
 
@@ -34,6 +35,28 @@ export class Admin implements OnInit {
     this.chargerClients();
     this.chargerStats();
     this.chargerStocks();
+    this.chargerParametres();
+  }
+
+  chargerParametres() {
+    this.http.get<any>(`${this.apiUrl}/api/admin/parametres`).subscribe({
+      next: (data) => {
+        this.commandesOuvertes = data.commandes_ouvertes;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  toggleCommandes() {
+    const nouvelEtat = !this.commandesOuvertes;
+    this.http.put(`${this.apiUrl}/api/admin/parametres/commandes`, { ouvert: nouvelEtat }).subscribe({
+      next: () => {
+        this.commandesOuvertes = nouvelEtat;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err)
+    });
   }
 
   chargerCommandes() {

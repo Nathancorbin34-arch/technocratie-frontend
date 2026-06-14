@@ -316,3 +316,59 @@
     grid-template-columns: 1fr;
   }
 }
+.commandes-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.toggle-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.toggle-status {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.toggle-status.ouvert { color: #00c864; }
+.toggle-status.ferme { color: #ff3c3c; }
+
+.btn-toggle {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-fermer {
+  background: rgba(255,60,60,0.15);
+  border: 1px solid rgba(255,60,60,0.4);
+  color: #ff3c3c;
+}
+
+.btn-fermer:hover { background: rgba(255,60,60,0.3); }
+
+.btn-ouvrir {
+  background: rgba(0,200,100,0.15);
+  border: 1px solid rgba(0,200,100,0.4);
+  color: #00c864;
+}
+
+.btn-ouvrir:hover { background: rgba(0,200,100,0.3); }

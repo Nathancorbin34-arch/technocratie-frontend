@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PanierService } from '../../services/panier';
 import { StocksService } from '../../services/stocks';
+import { ParametresService } from '../../services/parametres';
 
 @Component({
   selector: 'app-accueil',
@@ -14,12 +15,14 @@ export class Accueil implements OnInit {
   constructor(
     private panierService: PanierService,
     private stocksService: StocksService,
+    private parametresService: ParametresService,
     private cdr: ChangeDetectorRef
   ) {}
 
   toast: { message: string, type: 'success' | 'error' } | null = null;
   toastTimeout: any = null;
   stocks: any[] = [];
+  commandesOuvertes = true;
 
   products = [
     {
@@ -65,6 +68,14 @@ export class Accueil implements OnInit {
       },
       error: (err) => console.error('Erreur stocks:', err)
     });
+
+    this.parametresService.getParametres().subscribe({
+      next: (data) => {
+        this.commandesOuvertes = data.commandes_ouvertes;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Erreur parametres:', err)
+    });
   }
 
   getStock(nomProduit: string, taille: string): number {
@@ -73,6 +84,7 @@ export class Accueil implements OnInit {
   }
 
   tailleDisponible(nomProduit: string, taille: string): boolean {
+    if (!this.commandesOuvertes) return false;
     return this.getStock(nomProduit, taille) > 0;
   }
 
@@ -118,14 +130,18 @@ export class Accueil implements OnInit {
   }
 
   selectionnerTaille(productIndex: number, taille: string) {
+    if (!this.commandesOuvertes) return;
     const p = this.products[productIndex];
     if (!this.tailleDisponible(p.nom, taille)) return;
     p.tailleSelectionnee = taille;
   }
 
   ajouterAuPanier(productIndex: number) {
+    if (!this.commandesOuvertes) {
+      this.afficherToast('Les commandes ne sont pas ouvertes pour le moment !', 'error');
+      return;
+    }
     const p = this.products[productIndex];
-    console.log('Stocks:', this.stocks.length, 'Stock dispo:', this.getStock(p.nom, p.tailleSelectionnee || ''));
     if (!p.tailleSelectionnee) {
       this.afficherToast('Sélectionne une taille avant d\'ajouter au panier !', 'error');
       return;
