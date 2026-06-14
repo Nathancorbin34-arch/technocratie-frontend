@@ -54,3 +54,13 @@
 .product-card:nth-child(2) { transition-delay: 0.1s; }
 .product-card:nth-child(3) { transition-delay: 0.2s; }
 .product-card:nth-child(4) { transition-delay: 0.3s; }
+.taille-btn.epuisee {
+  opacity: 0.3;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.stock-zero {
+  font-size: 8px;
+  margin-left: 2px;
+}

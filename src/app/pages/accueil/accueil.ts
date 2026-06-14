@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PanierService } from '../../services/panier';
+import { StocksService } from '../../services/stocks';
 
 @Component({
   selector: 'app-accueil',
@@ -8,12 +9,16 @@ import { PanierService } from '../../services/panier';
   templateUrl: './accueil.html',
   styleUrl: './accueil.css',
 })
-export class Accueil {
+export class Accueil implements OnInit {
 
-  constructor(private panierService: PanierService) {}
+  constructor(
+    private panierService: PanierService,
+    private stocksService: StocksService
+  ) {}
 
   toast: { message: string, type: 'success' | 'error' } | null = null;
   toastTimeout: any = null;
+  stocks: any[] = [];
 
   products = [
     {
@@ -50,6 +55,22 @@ export class Accueil {
   activeImages = [0, 0, 0, 0];
   touchStartX = 0;
   touchEndX = 0;
+
+  ngOnInit() {
+    this.stocksService.getStocks().subscribe({
+      next: (stocks) => this.stocks = stocks,
+      error: (err) => console.error('Erreur stocks:', err)
+    });
+  }
+
+  getStock(nomProduit: string, taille: string): number {
+    const stock = this.stocks.find(s => s.produit_nom === nomProduit && s.taille === taille);
+    return stock ? stock.quantite : 0;
+  }
+
+  tailleDisponible(nomProduit: string, taille: string): boolean {
+    return this.getStock(nomProduit, taille) > 0;
+  }
 
   afficherToast(message: string, type: 'success' | 'error') {
     this.toast = { message, type };
@@ -93,13 +114,19 @@ export class Accueil {
   }
 
   selectionnerTaille(productIndex: number, taille: string) {
-    this.products[productIndex].tailleSelectionnee = taille;
+    const p = this.products[productIndex];
+    if (!this.tailleDisponible(p.nom, taille)) return;
+    p.tailleSelectionnee = taille;
   }
 
   ajouterAuPanier(productIndex: number) {
     const p = this.products[productIndex];
     if (!p.tailleSelectionnee) {
       this.afficherToast('Sélectionne une taille avant d\'ajouter au panier !', 'error');
+      return;
+    }
+    if (!this.tailleDisponible(p.nom, p.tailleSelectionnee)) {
+      this.afficherToast(`${p.nom} en ${p.tailleSelectionnee} n'est plus disponible !`, 'error');
       return;
     }
     this.panierService.ajouterAuPanier({

@@ -43,7 +43,14 @@
             @for (taille of tailles; track taille) {
               <button class="taille-btn"
                 [class.active]="product.tailleSelectionnee === taille"
-                (click)="selectionnerTaille(i, taille)">{{ taille }}</button>
+                [class.epuisee]="!tailleDisponible(product.nom, taille)"
+                [disabled]="!tailleDisponible(product.nom, taille)"
+                (click)="selectionnerTaille(i, taille)">
+                {{ taille }}
+                @if (!tailleDisponible(product.nom, taille)) {
+                  <span class="stock-zero">✕</span>
+                }
+              </button>
             }
           </div>
           @if (!product.tailleSelectionnee) {
