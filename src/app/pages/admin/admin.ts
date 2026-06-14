@@ -59,6 +59,10 @@ export class Admin implements OnInit {
     });
   }
 
+  exporterPDF() {
+    window.open(`${this.apiUrl}/api/export/commandes-pdf`, '_blank');
+  }
+
   chargerCommandes() {
     this.http.get<any[]>(`${this.apiUrl}/api/admin/commandes`).subscribe({
       next: (data) => this.commandes = data,

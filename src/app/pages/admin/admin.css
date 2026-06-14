@@ -415,3 +415,22 @@
 .cp-numero {
   color: var(--purple-pale);
 }
+.btn-export-pdf {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background: rgba(122,60,255,0.15);
+  border: 1px solid rgba(122,60,255,0.4);
+  color: var(--purple-pale);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-export-pdf:hover {
+  background: rgba(122,60,255,0.3);
+  color: white;
+}

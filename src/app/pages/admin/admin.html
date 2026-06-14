@@ -2,23 +2,22 @@
   <div class="admin-container">
 
     <div class="admin-header">
-      <!-- Bouton ouverture/fermeture commandes -->
-<div class="commandes-toggle">
-  <div class="toggle-info">
-    <p class="toggle-label">Statut des commandes</p>
-    <p class="toggle-status" [class.ouvert]="commandesOuvertes" [class.ferme]="!commandesOuvertes">
-      {{ commandesOuvertes ? '🟢 Commandes ouvertes' : '🔴 Commandes fermées' }}
-    </p>
-  </div>
-  <button class="btn-toggle" [class.btn-fermer]="commandesOuvertes" [class.btn-ouvrir]="!commandesOuvertes" (click)="toggleCommandes()">
-    {{ commandesOuvertes ? 'Fermer les commandes' : 'Ouvrir les commandes' }}
-  </button>
-</div>
+      <div class="commandes-toggle">
+        <div class="toggle-info">
+          <p class="toggle-label">Statut des commandes</p>
+          <p class="toggle-status" [class.ouvert]="commandesOuvertes" [class.ferme]="!commandesOuvertes">
+            {{ commandesOuvertes ? '🟢 Commandes ouvertes' : '🔴 Commandes fermées' }}
+          </p>
+        </div>
+        <button class="btn-toggle" [class.btn-fermer]="commandesOuvertes" [class.btn-ouvrir]="!commandesOuvertes" (click)="toggleCommandes()">
+          {{ commandesOuvertes ? 'Fermer les commandes' : 'Ouvrir les commandes' }}
+        </button>
+      </div>
       <h1 class="admin-titre">ESPACE ADMIN</h1>
       <p class="admin-sub">Technocratie — Tableau de bord</p>
+      <button class="btn-export-pdf" (click)="exporterPDF()">📄 Exporter PDF</button>
     </div>
 
-    <!-- Stats rapides -->
     <div class="stats-grid">
       <div class="stat-card">
         <p class="stat-label">Commandes</p>
@@ -38,54 +37,57 @@
       </div>
     </div>
 
-    <!-- Onglets -->
     <div class="admin-tabs">
       <button class="admin-tab" [class.active]="onglet === 'commandes'" (click)="onglet = 'commandes'">Commandes</button>
       <button class="admin-tab" [class.active]="onglet === 'clients'" (click)="onglet = 'clients'">Clients</button>
       <button class="admin-tab" [class.active]="onglet === 'stocks'" (click)="onglet = 'stocks'">Stocks</button>
     </div>
 
-    <!-- Commandes -->
-@if (onglet === 'commandes') {
-  <div class="admin-table-container">
-    @if (commandes.length === 0) {
-      <p class="empty-msg">Aucune commande pour le moment</p>
-    }
-    @for (commande of commandes; track commande.id) {
-      <div class="commande-card">
-        <div class="commande-header">
-          <span class="commande-id">#{{ commande.id }}</span>
-          <span class="commande-date">{{ commande.date_commande | date:'dd/MM/yyyy HH:mm' }}</span>
-          <span class="commande-statut" [class]="commande.statut">{{ commande.statut }}</span>
-          <span class="commande-total">{{ commande.total }} €</span>
-        </div>
-        <div class="commande-client">
-          👤 {{ commande.prenom }} {{ commande.nom }} — {{ commande.email }}
-        </div>
-        @if (commande.produits && commande.produits.length > 0) {
-          <div class="commande-produits">
-            @for (produit of commande.produits; track $index) {
-              <div class="commande-produit-ligne">
-  <span class="cp-nom">{{ produit.nom }}</span>
-  <span class="cp-taille">Taille {{ produit.taille }}</span>
-  <span class="cp-quantite">x{{ produit.quantite }}</span>
-  @if (produit.surnom) {
-    <span class="cp-surnom">{{ produit.surnom }}</span>
-  }
-  @if (produit.numero) {
-    <span class="cp-numero">#{{ produit.numero }}</span>
-  }
-  <span class="cp-prix">{{ produit.prix_unitaire }} €</span>
-</div>
+    @if (onglet === 'commandes') {
+      <div class="admin-table-container">
+        @if (commandes.length === 0) {
+          <p class="empty-msg">Aucune commande pour le moment</p>
+        }
+        @for (commande of commandes; track commande.id) {
+          <div class="commande-card">
+            <div class="commande-header">
+              <span class="commande-id">#{{ commande.id }}</span>
+              <span class="commande-date">{{ commande.date_commande | date:'dd/MM/yyyy HH:mm' }}</span>
+              <span class="commande-statut" [class]="commande.statut">{{ commande.statut }}</span>
+              <span class="commande-total">{{ commande.total }} €</span>
+            </div>
+            <div class="commande-client">
+              👤 {{ commande.prenom }} {{ commande.nom }} — {{ commande.email }}
+              @if (commande.telephone) {
+                — 📱 {{ commande.telephone }}
+              }
+              @if (commande.adresse) {
+                <div class="commande-adresse">📍 {{ commande.adresse }}, {{ commande.code_postal }} {{ commande.ville }}</div>
+              }
+            </div>
+            @if (commande.produits && commande.produits.length > 0) {
+              <div class="commande-produits">
+                @for (produit of commande.produits; track $index) {
+                  <div class="commande-produit-ligne">
+                    <span class="cp-nom">{{ produit.nom }}</span>
+                    <span class="cp-taille">Taille {{ produit.taille }}</span>
+                    <span class="cp-quantite">x{{ produit.quantite }}</span>
+                    @if (produit.surnom) {
+                      <span class="cp-surnom">{{ produit.surnom }}</span>
+                    }
+                    @if (produit.numero) {
+                      <span class="cp-numero">#{{ produit.numero }}</span>
+                    }
+                    <span class="cp-prix">{{ produit.prix_unitaire }} €</span>
+                  </div>
+                }
+              </div>
             }
           </div>
         }
       </div>
     }
-  </div>
-}
 
-    <!-- Clients -->
     @if (onglet === 'clients') {
       <div class="admin-table-container">
         @if (clients.length === 0) {
@@ -107,7 +109,6 @@
       </div>
     }
 
-    <!-- Stocks -->
     @if (onglet === 'stocks') {
       <div class="admin-table-container">
         <div class="stocks-grid">
