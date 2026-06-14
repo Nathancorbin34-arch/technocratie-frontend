@@ -1,0 +1,42 @@
+<div class="commandes-page">
+  <div class="commandes-container">
+
+    <div class="commandes-header">
+      <a routerLink="/" class="btn-retour">← Retour</a>
+      <h1 class="commandes-titre">MES COMMANDES</h1>
+    </div>
+
+    @if (chargement) {
+      <p class="loading">Chargement...</p>
+    }
+
+    @if (!chargement && commandes.length === 0) {
+      <div class="empty">
+        <p>Tu n'as pas encore de commande.</p>
+        <a routerLink="/" class="btn-collection">Voir la collection →</a>
+      </div>
+    }
+
+    @for (commande of commandes; track commande.id) {
+      <div class="commande-card">
+        <div class="commande-header">
+          <span class="commande-id">#{{ commande.id }}</span>
+          <span class="commande-date">{{ commande.date_commande | date:'dd/MM/yyyy à HH:mm' }}</span>
+          <span class="commande-statut">{{ commande.statut }}</span>
+          <span class="commande-total">{{ commande.total }} €</span>
+        </div>
+        <div class="commande-produits">
+          @for (produit of commande.produits; track $index) {
+            <div class="produit-ligne">
+              <span class="produit-nom">{{ produit.nom || 'Maillot' }}</span>
+              <span class="produit-taille">Taille {{ produit.taille }}</span>
+              <span class="produit-quantite">x{{ produit.quantite }}</span>
+              <span class="produit-prix">{{ produit.prix_unitaire }} €</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+  </div>
+</div>

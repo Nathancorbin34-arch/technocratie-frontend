@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { PanierService, PanierItem } from '../../services/panier';
 import { StocksService } from '../../services/stocks';
 import { ParametresService } from '../../services/parametres';
+import { AuthService } from '../../services/auth';
 import { environment } from '../../../environments/environment';
 
 interface PersonnalisationItem {
@@ -35,6 +36,7 @@ export class Personnalisation implements OnInit {
     private http: HttpClient,
     private stocksService: StocksService,
     private parametresService: ParametresService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -80,7 +82,6 @@ export class Personnalisation implements OnInit {
     this.chargement = true;
     this.erreurStock = '';
 
-    // 1. Vérifier si les commandes sont ouvertes
     this.parametresService.getParametres().subscribe({
       next: (data) => {
         if (!data.commandes_ouvertes) {
@@ -90,7 +91,6 @@ export class Personnalisation implements OnInit {
           return;
         }
 
-        // 2. Vérifier les stocks
         const items = this.panierService.getItems();
         this.stocksService.verifierDisponibilite(items).subscribe({
           next: (res) => {
@@ -104,15 +104,17 @@ export class Personnalisation implements OnInit {
               return;
             }
 
-            // 3. Créer la session Stripe
             const itemsPersonnalises = this.personnalisations.map(p => ({
               ...p.item,
               surnom: p.surnom,
               numero: p.numero
             }));
 
+            const clientEmail = this.authService.getClient()?.email;
+
             this.http.post<any>(`${this.apiUrl}/api/paiement/creer-session`, {
-              items: itemsPersonnalises
+              items: itemsPersonnalises,
+              clientEmail
             }).subscribe({
               next: (res) => {
                 window.location.href = res.url;

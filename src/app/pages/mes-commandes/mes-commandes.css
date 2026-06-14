@@ -1,0 +1,164 @@
+.commandes-page {
+  min-height: 100vh;
+  background: var(--bg-deep);
+  padding: 6rem 2rem 2rem;
+}
+
+.commandes-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.commandes-header {
+  margin-bottom: 2rem;
+}
+
+.btn-retour {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 1rem;
+  transition: color 0.2s;
+}
+
+.btn-retour:hover { color: white; }
+
+.commandes-titre {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+  background: linear-gradient(135deg, #ffffff 40%, rgba(184,146,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.loading {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 3rem;
+  letter-spacing: 2px;
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem;
+}
+
+.empty p {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.btn-collection {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: rgba(122,60,255,0.15);
+  border: 1px solid rgba(122,60,255,0.4);
+  color: var(--purple-pale);
+  text-decoration: none;
+  border-radius: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.btn-collection:hover {
+  background: rgba(122,60,255,0.3);
+  color: white;
+}
+
+.commande-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.commande-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.commande-id {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: var(--purple-pale);
+}
+
+.commande-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.commande-statut {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(0,200,100,0.15);
+  border: 1px solid rgba(0,200,100,0.3);
+  color: #00c864;
+}
+
+.commande-total {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: white;
+  margin-left: auto;
+}
+
+.commande-produits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.produit-ligne {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  flex-wrap: wrap;
+}
+
+.produit-nom {
+  color: white;
+  font-weight: 500;
+  flex: 1;
+}
+
+.produit-taille {
+  color: var(--purple-pale);
+}
+
+.produit-quantite {
+  color: var(--text-muted);
+}
+
+.produit-prix {
+  color: var(--text-secondary);
+  margin-left: auto;
+}
