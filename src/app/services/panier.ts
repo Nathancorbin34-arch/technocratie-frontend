@@ -15,9 +15,22 @@ export interface PanierItem {
 })
 export class PanierService {
 
-  private items: PanierItem[] = [];
-  private panierSubject = new BehaviorSubject<PanierItem[]>([]);
+  private items: PanierItem[] = this.chargerDepuisStorage();
+  private panierSubject = new BehaviorSubject<PanierItem[]>(this.items);
   panier$ = this.panierSubject.asObservable();
+
+  private chargerDepuisStorage(): PanierItem[] {
+    try {
+      const data = localStorage.getItem('panier');
+      return data ? JSON.parse(data) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private sauvegarderDansStorage() {
+    localStorage.setItem('panier', JSON.stringify(this.items));
+  }
 
   ajouterAuPanier(item: PanierItem) {
     const existant = this.items.find(
@@ -29,6 +42,7 @@ export class PanierService {
       this.items.push({ ...item, quantite: 1 });
     }
     this.panierSubject.next([...this.items]);
+    this.sauvegarderDansStorage();
   }
 
   supprimerDuPanier(id: number, taille: string) {
@@ -36,11 +50,13 @@ export class PanierService {
       i => !(i.id === id && i.taille === taille)
     );
     this.panierSubject.next([...this.items]);
+    this.sauvegarderDansStorage();
   }
 
   viderPanier() {
     this.items = [];
     this.panierSubject.next([]);
+    this.sauvegarderDansStorage();
   }
 
   getNombreItems(): number {

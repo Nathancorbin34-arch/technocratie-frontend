@@ -2,13 +2,13 @@
   <div class="overlay"></div>
   <div class="hero-grid"></div>
   <div class="hero-logo-bg">
-  <img src="assets/images/logo-bg.png" alt="" class="hero-logo-glow" />
-</div>
+    <img src="assets/images/logo-bg.png" alt="" class="hero-logo-glow" />
+  </div>
   <div class="hero-content">
     <p class="top-text">Collection officielle</p>
     <h1>TECHNOCRATIE</h1>
     <p class="hero-signature">by <span>Jf &amp; Sono</span></p>
-    <a href="#collection" class="hero-button">Voir la collection</a>
+    <a href="#collection" class="hero-button">Voir la collection ↓</a>
   </div>
   <div class="scroll-hint">
     <div class="scroll-hint-line"></div>
@@ -26,11 +26,11 @@
       <div class="product-card visible">
         <div class="product-image-slider">
           <button class="slider-arrow slider-arrow-left" (click)="prevImage(i)">&#8249;</button>
-        <div class="product-image-track"
-     (touchstart)="onTouchStart($event, i)"
-     (touchend)="onTouchEnd($event, i)">
-  <img [src]="product.images[0]" [alt]="product.nom" class="main-product-image" />
-  <img [src]="product.images[1]" [alt]="product.nom" class="main-product-image" />
+          <div class="product-image-track"
+               (touchstart)="onTouchStart($event, i)"
+               (touchend)="onTouchEnd($event, i)">
+            <img [src]="product.images[0]" [alt]="product.nom" class="main-product-image" />
+            <img [src]="product.images[1]" [alt]="product.nom" class="main-product-image" />
             <img [src]="product.images[activeImages[i]]" [alt]="product.nom" class="main-product-image" />
           </div>
           <button class="slider-arrow slider-arrow-right" (click)="nextImage(i)">&#8250;</button>
@@ -41,12 +41,23 @@
           <p class="price">{{ product.prix }}</p>
           <div class="tailles">
             @for (taille of tailles; track taille) {
-              <button class="taille-btn" [class.active]="product.tailleSelectionnee === taille" (click)="selectionnerTaille(i, taille)">{{ taille }}</button>
+              <button class="taille-btn"
+                [class.active]="product.tailleSelectionnee === taille"
+                (click)="selectionnerTaille(i, taille)">{{ taille }}</button>
             }
           </div>
+          @if (!product.tailleSelectionnee) {
+            <p class="taille-warning">Sélectionne une taille</p>
+          }
           <button class="product-button" (click)="ajouterAuPanier(i)">Ajouter au panier</button>
         </div>
       </div>
     }
   </div>
 </section>
+
+@if (toast) {
+  <div class="toast" [class.toast-error]="toast.type === 'error'" [class.toast-success]="toast.type === 'success'">
+    {{ toast.message }}
+  </div>
+}

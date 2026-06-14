@@ -12,46 +12,37 @@ export class Accueil {
 
   constructor(private panierService: PanierService) {}
 
+  toast: { message: string, type: 'success' | 'error' } | null = null;
+  toastTimeout: any = null;
+
   products = [
     {
       id: 1,
       nom: 'Maillot Technocratie',
       prix: '44,99 €',
-      images: [
-        'assets/images/technocratie-front.jpg',
-        'assets/images/technocratie-back.jpg'
-      ],
-      tailleSelectionnee: 'M'
+      images: ['assets/images/technocratie-front.jpg', 'assets/images/technocratie-back.jpg'],
+      tailleSelectionnee: ''
     },
     {
       id: 2,
       nom: 'Rawcratie',
       prix: '44,99 €',
-      images: [
-        'assets/images/rawcratie-front.jpg',
-        'assets/images/rawcratie-back.jpg'
-      ],
-      tailleSelectionnee: 'M'
+      images: ['assets/images/rawcratie-front.jpg', 'assets/images/rawcratie-back.jpg'],
+      tailleSelectionnee: ''
     },
     {
       id: 3,
       nom: 'Uptempocratie',
       prix: '44,99 €',
-      images: [
-        'assets/images/uptempocratie-front.jpg',
-        'assets/images/uptempocratie-back.jpg'
-      ],
-      tailleSelectionnee: 'M'
+      images: ['assets/images/uptempocratie-front.jpg', 'assets/images/uptempocratie-back.jpg'],
+      tailleSelectionnee: ''
     },
     {
       id: 4,
       nom: 'Zaagocratie',
       prix: '44,99 €',
-      images: [
-        'assets/images/zaagocratie-front.jpg',
-        'assets/images/zaagocratie-back.jpg'
-      ],
-      tailleSelectionnee: 'M'
+      images: ['assets/images/zaagocratie-front.jpg', 'assets/images/zaagocratie-back.jpg'],
+      tailleSelectionnee: ''
     }
   ];
 
@@ -60,27 +51,33 @@ export class Accueil {
   touchStartX = 0;
   touchEndX = 0;
 
-nextImage(index: number) {
-  this.activeImages[index] = this.activeImages[index] === 0 ? 1 : 0;
-  this.updateSlider(index);
-}
+  afficherToast(message: string, type: 'success' | 'error') {
+    this.toast = { message, type };
+    if (this.toastTimeout) clearTimeout(this.toastTimeout);
+    this.toastTimeout = setTimeout(() => this.toast = null, 3000);
+  }
 
-prevImage(index: number) {
-  this.activeImages[index] = this.activeImages[index] === 0 ? 1 : 0;
-  this.updateSlider(index);
-}
+  nextImage(index: number) {
+    this.activeImages[index] = this.activeImages[index] === 0 ? 1 : 0;
+    this.updateSlider(index);
+  }
 
-updateSlider(index: number) {
-  const sliders = document.querySelectorAll('.product-image-track');
-  const slider = sliders[index] as HTMLElement;
-  if (slider) {
-    if (this.activeImages[index] === 1) {
-      slider.classList.add('show-back');
-    } else {
-      slider.classList.remove('show-back');
+  prevImage(index: number) {
+    this.activeImages[index] = this.activeImages[index] === 0 ? 1 : 0;
+    this.updateSlider(index);
+  }
+
+  updateSlider(index: number) {
+    const sliders = document.querySelectorAll('.product-image-track');
+    const slider = sliders[index] as HTMLElement;
+    if (slider) {
+      if (this.activeImages[index] === 1) {
+        slider.classList.add('show-back');
+      } else {
+        slider.classList.remove('show-back');
+      }
     }
   }
-}
 
   onTouchStart(event: TouchEvent, index: number) {
     this.touchStartX = event.touches[0].clientX;
@@ -90,11 +87,8 @@ updateSlider(index: number) {
     this.touchEndX = event.changedTouches[0].clientX;
     const diff = this.touchStartX - this.touchEndX;
     if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        this.nextImage(index);
-      } else {
-        this.prevImage(index);
-      }
+      if (diff > 0) this.nextImage(index);
+      else this.prevImage(index);
     }
   }
 
@@ -104,6 +98,10 @@ updateSlider(index: number) {
 
   ajouterAuPanier(productIndex: number) {
     const p = this.products[productIndex];
+    if (!p.tailleSelectionnee) {
+      this.afficherToast('Sélectionne une taille avant d\'ajouter au panier !', 'error');
+      return;
+    }
     this.panierService.ajouterAuPanier({
       id: p.id,
       nom: p.nom,
@@ -112,6 +110,6 @@ updateSlider(index: number) {
       taille: p.tailleSelectionnee,
       quantite: 1
     });
-    alert(`✓ ${p.nom} (${p.tailleSelectionnee}) ajouté au panier !`);
+    this.afficherToast(`✓ ${p.nom} (${p.tailleSelectionnee}) ajouté au panier !`, 'success');
   }
 }

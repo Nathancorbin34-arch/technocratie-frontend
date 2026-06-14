@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PanierService, PanierItem } from '../../services/panier';
+import { environment } from '../../../environments/environment';
 
 interface PersonnalisationItem {
   item: PanierItem;
@@ -22,6 +23,8 @@ export class Personnalisation implements OnInit {
   personnalisations: PersonnalisationItem[] = [];
   appliquerATous = false;
   chargement = false;
+
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private panierService: PanierService,
@@ -75,7 +78,7 @@ export class Personnalisation implements OnInit {
       numero: p.numero
     }));
 
-    this.http.post<any>('http://localhost:3000/api/paiement/creer-session', {
+    this.http.post<any>(`${this.apiUrl}/api/paiement/creer-session`, {
       items
     }).subscribe({
       next: (res) => {

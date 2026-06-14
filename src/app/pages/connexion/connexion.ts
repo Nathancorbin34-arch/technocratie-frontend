@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-connexion',
@@ -28,6 +29,8 @@ export class Connexion {
 
   messageErreur = '';
 
+  private apiUrl = environment.apiUrl;
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -36,7 +39,7 @@ export class Connexion {
 
   seConnecter() {
     this.messageErreur = '';
-    this.http.post<any>('http://localhost:3000/api/auth/connexion', {
+    this.http.post<any>(`${this.apiUrl}/api/auth/connexion`, {
       email: this.loginEmail,
       mot_de_passe: this.loginPassword
     }).subscribe({
@@ -52,7 +55,7 @@ export class Connexion {
 
   sInscrire() {
     this.messageErreur = '';
-    this.http.post<any>('http://localhost:3000/api/auth/inscription', {
+    this.http.post<any>(`${this.apiUrl}/api/auth/inscription`, {
       prenom: this.prenom,
       nom: this.nom,
       email: this.email,

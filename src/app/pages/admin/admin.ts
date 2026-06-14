@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin',
@@ -16,6 +17,8 @@ export class Admin implements OnInit {
   stats: any = {};
   chargement = false;
 
+  private apiUrl = environment.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
@@ -25,21 +28,21 @@ export class Admin implements OnInit {
   }
 
   chargerCommandes() {
-    this.http.get<any[]>('http://localhost:3000/api/admin/commandes').subscribe({
+    this.http.get<any[]>(`${this.apiUrl}/api/admin/commandes`).subscribe({
       next: (data) => this.commandes = data,
       error: (err) => console.error(err)
     });
   }
 
   chargerClients() {
-    this.http.get<any[]>('http://localhost:3000/api/admin/clients').subscribe({
+    this.http.get<any[]>(`${this.apiUrl}/api/admin/clients`).subscribe({
       next: (data) => this.clients = data,
       error: (err) => console.error(err)
     });
   }
 
   chargerStats() {
-    this.http.get<any>('http://localhost:3000/api/admin/stats').subscribe({
+    this.http.get<any>(`${this.apiUrl}/api/admin/stats`).subscribe({
       next: (data) => this.stats = data,
       error: (err) => console.error(err)
     });
