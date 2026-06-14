@@ -19,6 +19,9 @@ export class Admin implements OnInit {
   stocks: any[] = [];
   chargement = false;
   commandesOuvertes = true;
+  dateOuverture = '';
+  dateFermeture = '';
+  messageCalendrier = '';
 
   private apiUrl = environment.apiUrl;
 
@@ -42,6 +45,8 @@ export class Admin implements OnInit {
     this.http.get<any>(`${this.apiUrl}/api/admin/parametres`).subscribe({
       next: (data) => {
         this.commandesOuvertes = data.commandes_ouvertes;
+        this.dateOuverture = data.date_ouverture || '';
+        this.dateFermeture = data.date_fermeture || '';
         this.cdr.detectChanges();
       },
       error: (err) => console.error(err)
@@ -53,9 +58,50 @@ export class Admin implements OnInit {
     this.http.put(`${this.apiUrl}/api/admin/parametres/commandes`, { ouvert: nouvelEtat }).subscribe({
       next: () => {
         this.commandesOuvertes = nouvelEtat;
+        // Réinitialiser les dates si on bascule manuellement
+        this.dateOuverture = '';
+        this.dateFermeture = '';
+        this.http.put(`${this.apiUrl}/api/admin/parametres/dates`, { date_ouverture: '', date_fermeture: '' }).subscribe();
         this.cdr.detectChanges();
       },
       error: (err) => console.error(err)
+    });
+  }
+
+  sauvegarderDates() {
+    if (!this.dateOuverture || !this.dateFermeture) {
+      this.messageCalendrier = 'Remplis les deux dates !';
+      this.cdr.detectChanges();
+      return;
+    }
+    if (new Date(this.dateOuverture) >= new Date(this.dateFermeture)) {
+      this.messageCalendrier = 'La date d\'ouverture doit être avant la fermeture !';
+      this.cdr.detectChanges();
+      return;
+    }
+    this.http.put(`${this.apiUrl}/api/admin/parametres/dates`, {
+      date_ouverture: this.dateOuverture,
+      date_fermeture: this.dateFermeture
+    }).subscribe({
+      next: () => {
+        this.messageCalendrier = '✓ Planification sauvegardée !';
+        this.chargerParametres();
+        this.cdr.detectChanges();
+        setTimeout(() => { this.messageCalendrier = ''; this.cdr.detectChanges(); }, 3000);
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  effacerDates() {
+    this.dateOuverture = '';
+    this.dateFermeture = '';
+    this.http.put(`${this.apiUrl}/api/admin/parametres/dates`, { date_ouverture: '', date_fermeture: '' }).subscribe({
+      next: () => {
+        this.messageCalendrier = 'Planification effacée';
+        this.cdr.detectChanges();
+        setTimeout(() => { this.messageCalendrier = ''; this.cdr.detectChanges(); }, 3000);
+      }
     });
   }
 

@@ -2,20 +2,49 @@
   <div class="admin-container">
 
     <div class="admin-header">
+      <h1 class="admin-titre">ESPACE ADMIN</h1>
+      <p class="admin-sub">Technocratie — Tableau de bord</p>
+      <button class="btn-export-pdf" (click)="exporterPDF()">📄 Exporter PDF</button>
+    </div>
+
+    <div class="controles-grid">
+      <!-- Statut manuel -->
       <div class="commandes-toggle">
         <div class="toggle-info">
           <p class="toggle-label">Statut des commandes</p>
           <p class="toggle-status" [class.ouvert]="commandesOuvertes" [class.ferme]="!commandesOuvertes">
-            {{ commandesOuvertes ? '🟢 Commandes ouvertes' : '🔴 Commandes fermées' }}
+            {{ commandesOuvertes ? '🟢 Ouvertes' : '🔴 Fermées' }}
           </p>
         </div>
         <button class="btn-toggle" [class.btn-fermer]="commandesOuvertes" [class.btn-ouvrir]="!commandesOuvertes" (click)="toggleCommandes()">
-          {{ commandesOuvertes ? 'Fermer les commandes' : 'Ouvrir les commandes' }}
+          {{ commandesOuvertes ? 'Fermer' : 'Ouvrir' }}
         </button>
       </div>
-      <h1 class="admin-titre">ESPACE ADMIN</h1>
-      <p class="admin-sub">Technocratie — Tableau de bord</p>
-      <button class="btn-export-pdf" (click)="exporterPDF()">📄 Exporter PDF</button>
+
+      <!-- Planification automatique -->
+      <div class="calendrier-block">
+        <p class="toggle-label">Planification automatique</p>
+        <div class="calendrier-inputs">
+          <div class="calendrier-field">
+            <label>Ouverture</label>
+            <input type="datetime-local" [(ngModel)]="dateOuverture" class="date-input" />
+          </div>
+          <div class="calendrier-field">
+            <label>Fermeture</label>
+            <input type="datetime-local" [(ngModel)]="dateFermeture" class="date-input" />
+          </div>
+        </div>
+        <div class="calendrier-actions">
+          <button class="btn-sauvegarder" (click)="sauvegarderDates()">✓ Sauvegarder</button>
+          <button class="btn-effacer" (click)="effacerDates()">✕ Effacer</button>
+        </div>
+        @if (messageCalendrier) {
+          <p class="calendrier-msg">{{ messageCalendrier }}</p>
+        }
+        @if (dateOuverture && dateFermeture) {
+          <p class="calendrier-info">Du {{ dateOuverture | date:'dd/MM/yyyy HH:mm' }} au {{ dateFermeture | date:'dd/MM/yyyy HH:mm' }}</p>
+        }
+      </div>
     </div>
 
     <div class="stats-grid">

@@ -32,6 +32,185 @@
   margin-top: 4px;
 }
 
+.btn-export-pdf {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background: rgba(122,60,255,0.15);
+  border: 1px solid rgba(122,60,255,0.4);
+  color: var(--purple-pale);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-export-pdf:hover {
+  background: rgba(122,60,255,0.3);
+  color: white;
+}
+
+/* ─── CONTROLES GRID ─── */
+.controles-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.commandes-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+  gap: 1rem;
+}
+
+.toggle-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.toggle-status {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.toggle-status.ouvert { color: #00c864; }
+.toggle-status.ferme { color: #ff3c3c; }
+
+.btn-toggle {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-start;
+}
+
+.btn-fermer {
+  background: rgba(255,60,60,0.15);
+  border: 1px solid rgba(255,60,60,0.4);
+  color: #ff3c3c;
+}
+
+.btn-fermer:hover { background: rgba(255,60,60,0.3); }
+
+.btn-ouvrir {
+  background: rgba(0,200,100,0.15);
+  border: 1px solid rgba(0,200,100,0.4);
+  color: #00c864;
+}
+
+.btn-ouvrir:hover { background: rgba(0,200,100,0.3); }
+
+/* ─── CALENDRIER ─── */
+.calendrier-block {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+}
+
+.calendrier-inputs {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.calendrier-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.calendrier-field label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.date-input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  color: white;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.calendrier-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-sauvegarder {
+  padding: 0.6rem 1.2rem;
+  background: rgba(122,60,255,0.2);
+  border: 1px solid rgba(122,60,255,0.4);
+  color: var(--purple-pale);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-sauvegarder:hover { background: rgba(122,60,255,0.4); color: white; }
+
+.btn-effacer {
+  padding: 0.6rem 1.2rem;
+  background: rgba(255,60,60,0.1);
+  border: 1px solid rgba(255,60,60,0.3);
+  color: #ff3c3c;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-effacer:hover { background: rgba(255,60,60,0.25); }
+
+.calendrier-msg {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--purple-pale);
+  margin-top: 0.5rem;
+}
+
+.calendrier-info {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
 /* ─── STATS ─── */
 .stats-grid {
   display: grid;
@@ -160,6 +339,35 @@
   letter-spacing: 0.5px;
 }
 
+.commande-adresse {
+  margin-top: 4px;
+}
+
+.commande-produits {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.commande-produit-ligne {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  flex-wrap: wrap;
+}
+
+.cp-nom { color: white; flex: 1; }
+.cp-taille { color: var(--purple-pale); }
+.cp-quantite { color: var(--text-muted); }
+.cp-prix { color: var(--text-secondary); margin-left: auto; }
+.cp-surnom { color: var(--purple-pale); font-style: italic; }
+.cp-numero { color: var(--purple-pale); }
+
 /* ─── CLIENTS ─── */
 .client-card {
   background: var(--bg-card);
@@ -204,9 +412,8 @@
   flex-wrap: wrap;
 }
 
-.client-date {
-  color: var(--text-muted);
-}
+.client-date { color: var(--text-muted); }
+
 /* ─── STOCKS ─── */
 .stocks-grid {
   display: grid;
@@ -273,9 +480,7 @@
   justify-content: center;
 }
 
-.stock-btn:hover {
-  background: rgba(122,60,255,0.4);
-}
+.stock-btn:hover { background: rgba(122,60,255,0.4); }
 
 .stock-input {
   background: rgba(255,255,255,0.05);
@@ -312,125 +517,7 @@
 }
 
 @media (max-width: 768px) {
-  .stocks-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.commandes-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--bg-card);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 1.2rem 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.toggle-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.toggle-status {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-.toggle-status.ouvert { color: #00c864; }
-.toggle-status.ferme { color: #ff3c3c; }
-
-.btn-toggle {
-  padding: 0.7rem 1.5rem;
-  border: none;
-  border-radius: 10px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-fermer {
-  background: rgba(255,60,60,0.15);
-  border: 1px solid rgba(255,60,60,0.4);
-  color: #ff3c3c;
-}
-
-.btn-fermer:hover { background: rgba(255,60,60,0.3); }
-
-.btn-ouvrir {
-  background: rgba(0,200,100,0.15);
-  border: 1px solid rgba(0,200,100,0.4);
-  color: #00c864;
-}
-
-.btn-ouvrir:hover { background: rgba(0,200,100,0.3); }
-.commande-produits {
-  margin-top: 0.8rem;
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--glass-border);
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.commande-produit-ligne {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  flex-wrap: wrap;
-}
-
-.cp-nom {
-  color: white;
-  flex: 1;
-}
-
-.cp-taille {
-  color: var(--purple-pale);
-}
-
-.cp-quantite {
-  color: var(--text-muted);
-}
-
-.cp-prix {
-  color: var(--text-secondary);
-  margin-left: auto;
-}
-.cp-surnom {
-  color: var(--purple-pale);
-  font-style: italic;
-}
-
-.cp-numero {
-  color: var(--purple-pale);
-}
-.btn-export-pdf {
-  margin-top: 1rem;
-  padding: 0.7rem 1.5rem;
-  background: rgba(122,60,255,0.15);
-  border: 1px solid rgba(122,60,255,0.4);
-  color: var(--purple-pale);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-export-pdf:hover {
-  background: rgba(122,60,255,0.3);
-  color: white;
+  .controles-grid { grid-template-columns: 1fr; }
+  .stocks-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
