@@ -33,17 +33,22 @@ export class PanierService {
   }
 
   ajouterAuPanier(item: PanierItem) {
-    const existant = this.items.find(
-      i => i.id === item.id && i.taille === item.taille
-    );
-    if (existant) {
-      existant.quantite += 1;
-    } else {
-      this.items.push({ ...item, quantite: 1 });
-    }
-    this.panierSubject.next([...this.items]);
-    this.sauvegarderDansStorage();
+  const totalItems = this.items.reduce((total, i) => total + i.quantite, 0);
+  if (totalItems >= 20) {
+    return false;
   }
+  const existant = this.items.find(
+    i => i.id === item.id && i.taille === item.taille
+  );
+  if (existant) {
+    existant.quantite += 1;
+  } else {
+    this.items.push({ ...item, quantite: 1 });
+  }
+  this.panierSubject.next([...this.items]);
+  this.sauvegarderDansStorage();
+  return true;
+}
 
   supprimerDuPanier(id: number, taille: string) {
     this.items = this.items.filter(

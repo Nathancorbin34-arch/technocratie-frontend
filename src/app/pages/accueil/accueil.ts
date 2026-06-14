@@ -151,6 +151,12 @@ export class Accueil implements OnInit {
       return;
     }
 
+    const totalPanier = this.panierService.getItems().reduce((total, i) => total + i.quantite, 0);
+    if (totalPanier >= 20) {
+      this.afficherToast('Maximum 20 maillots par commande !', 'error');
+      return;
+    }
+
     const dejaDansPanier = this.panierService.getItems()
       .filter(i => i.nom === p.nom && i.taille === p.tailleSelectionnee)
       .reduce((total, i) => total + i.quantite, 0);
