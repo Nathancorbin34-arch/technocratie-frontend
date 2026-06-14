@@ -1,0 +1,52 @@
+.legal-page {
+  min-height: 100vh;
+  background: var(--bg-deep);
+  padding: 6rem 2rem 4rem;
+}
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.legal-header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(122,60,255,0.3);
+  padding-bottom: 1.5rem;
+}
+
+.legal-header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+  background: linear-gradient(135deg, #ffffff 40%, rgba(184,146,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.legal-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.legal-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  color: var(--purple-pale);
+  margin-bottom: 0.8rem;
+}
+
+.legal-section p {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+.legal-section strong {
+  color: white;
+}
