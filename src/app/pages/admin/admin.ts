@@ -159,4 +159,23 @@ export class Admin implements OnInit {
       error: (err) => console.error(err)
     });
   }
+envoyerSuivi(commandeId: number, email: string) {
+  const numeroSuivi = prompt('Numéro de suivi :');
+  if (!numeroSuivi) return;
+  
+  const transporteurs = ['Colissimo', 'Chronopost', 'Mondial Relay', 'DHL', 'UPS', 'Autre'];
+  const choix = prompt(`Transporteur :\n${transporteurs.map((t, i) => `${i+1}. ${t}`).join('\n')}\n\nEntrez le numéro (1-${transporteurs.length}) :`);
+  const transporteur = transporteurs[parseInt(choix || '1') - 1] || 'Colissimo';
+  
+  this.http.post(`${this.apiUrl}/api/admin/commandes/${commandeId}/envoyer-suivi`, {
+    numeroSuivi,
+    transporteur
+  }).subscribe({
+    next: () => {
+      alert(`✓ Email de suivi envoyé ! (${transporteur})`);
+      this.chargerCommandes();
+    },
+    error: (err) => alert('Erreur : ' + err.error?.message)
+  });
+}
 }

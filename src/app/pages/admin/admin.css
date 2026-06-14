@@ -521,3 +521,32 @@
   .stocks-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
+.commande-actions {
+  margin-top: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-suivi {
+  padding: 0.5rem 1rem;
+  background: rgba(0,200,100,0.15);
+  border: 1px solid rgba(0,200,100,0.3);
+  color: #00c864;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-suivi:hover { background: rgba(0,200,100,0.3); }
+.btn-suivi:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.numero-suivi {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}

@@ -8,7 +8,6 @@
     </div>
 
     <div class="controles-grid">
-      <!-- Statut manuel -->
       <div class="commandes-toggle">
         <div class="toggle-info">
           <p class="toggle-label">Statut des commandes</p>
@@ -21,7 +20,6 @@
         </button>
       </div>
 
-      <!-- Planification automatique -->
       <div class="calendrier-block">
         <p class="toggle-label">Planification automatique</p>
         <div class="calendrier-inputs">
@@ -92,6 +90,15 @@
               }
               @if (commande.adresse) {
                 <div class="commande-adresse">📍 {{ commande.adresse }}, {{ commande.code_postal }} {{ commande.ville }}</div>
+              }
+            </div>
+            <div class="commande-actions">
+              <button class="btn-suivi" (click)="envoyerSuivi(commande.id, commande.email)"
+                [disabled]="commande.statut === 'expediee'">
+                {{ commande.statut === 'expediee' ? '✓ Expédiée' : '📦 Envoyer suivi' }}
+              </button>
+              @if (commande.numero_suivi) {
+                <span class="numero-suivi">{{ commande.numero_suivi }}</span>
               }
             </div>
             @if (commande.produits && commande.produits.length > 0) {
