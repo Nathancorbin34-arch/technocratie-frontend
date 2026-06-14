@@ -21,7 +21,7 @@
 
     <a routerLink="/panier" class="nav-panier">
       <span class="panier-icon">🛒</span>
-      <span class="panier-count">{{ panierService.getNombreItems() }}</span>
+     <span class="panier-count">{{ nombreItems$ | async }}</span>
     </a>
 
   </div>
