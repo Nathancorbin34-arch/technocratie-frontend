@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -32,7 +32,8 @@ export class Personnalisation implements OnInit {
     private panierService: PanierService,
     private router: Router,
     private http: HttpClient,
-    private stocksService: StocksService
+    private stocksService: StocksService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -79,7 +80,6 @@ export class Personnalisation implements OnInit {
 
     const items = this.panierService.getItems();
 
-    // Vérifier les stocks avant de payer
     this.stocksService.verifierDisponibilite(items).subscribe({
       next: (res) => {
         if (!res.disponible) {
@@ -88,10 +88,10 @@ export class Personnalisation implements OnInit {
           );
           this.erreurStock = msgs.join(' / ');
           this.chargement = false;
+          this.cdr.detectChanges();
           return;
         }
 
-        // Stocks OK → créer la session Stripe
         const itemsPersonnalises = this.personnalisations.map(p => ({
           ...p.item,
           surnom: p.surnom,
@@ -107,12 +107,23 @@ export class Personnalisation implements OnInit {
           error: (err) => {
             this.erreurStock = err.error?.message || 'Erreur lors du paiement';
             this.chargement = false;
+            this.cdr.detectChanges();
           }
         });
       },
       error: (err) => {
-        this.erreurStock = err.error?.message || 'Erreur lors de la vérification des stocks';
+        console.log('Erreur complète:', err);
+        console.log('err.error:', err.error);
+        if (err.error?.indisponibles) {
+          const msgs = err.error.indisponibles.map((i: any) =>
+            `${i.nom} taille ${i.taille} : seulement ${i.disponible} disponible(s)`
+          );
+          this.erreurStock = msgs.join(' / ');
+        } else {
+          this.erreurStock = err.error?.message || 'Stock insuffisant !';
+        }
         this.chargement = false;
+        this.cdr.detectChanges();
       }
     });
   }
