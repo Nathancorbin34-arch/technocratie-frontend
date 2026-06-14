@@ -30,6 +30,7 @@
     <div class="admin-tabs">
       <button class="admin-tab" [class.active]="onglet === 'commandes'" (click)="onglet = 'commandes'">Commandes</button>
       <button class="admin-tab" [class.active]="onglet === 'clients'" (click)="onglet = 'clients'">Clients</button>
+      <button class="admin-tab" [class.active]="onglet === 'stocks'" (click)="onglet = 'stocks'">Stocks</button>
     </div>
 
     <!-- Commandes -->
@@ -73,6 +74,40 @@
             </div>
           </div>
         }
+      </div>
+    }
+
+    <!-- Stocks -->
+    @if (onglet === 'stocks') {
+      <div class="admin-table-container">
+        <div class="stocks-grid">
+          @for (produit of produits; track produit) {
+            <div class="stock-produit-card">
+              <h3 class="stock-produit-nom">{{ produit }}</h3>
+              <div class="stock-tailles">
+                @for (taille of tailles; track taille) {
+                  <div class="stock-ligne">
+                    <span class="stock-taille-label">{{ taille }}</span>
+                    <div class="stock-controls">
+                      <button class="stock-btn" (click)="modifierStock(produit, taille, getStock(produit, taille) - 1)">−</button>
+                      <input
+                        class="stock-input"
+                        type="number"
+                        min="0"
+                        [value]="getStock(produit, taille)"
+                        (change)="modifierStock(produit, taille, +$any($event.target).value)"
+                      />
+                      <button class="stock-btn" (click)="modifierStock(produit, taille, getStock(produit, taille) + 1)">+</button>
+                    </div>
+                    <span class="stock-badge" [class.stock-ok]="getStock(produit, taille) > 0" [class.stock-zero]="getStock(produit, taille) === 0">
+                      {{ getStock(produit, taille) > 0 ? 'Dispo' : 'Épuisé' }}
+                    </span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
       </div>
     }
 

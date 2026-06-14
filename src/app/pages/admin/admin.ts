@@ -1,30 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin.html',
   styleUrl: './admin.css',
 })
 export class Admin implements OnInit {
 
-  onglet: 'commandes' | 'clients' | 'stats' = 'commandes';
+  onglet: 'commandes' | 'clients' | 'stats' | 'stocks' = 'commandes';
   commandes: any[] = [];
   clients: any[] = [];
   stats: any = {};
+  stocks: any[] = [];
   chargement = false;
 
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  produits = ['Maillot Technocratie', 'Rawcratie', 'Uptempocratie', 'Zaagocratie'];
+  tailles = ['XS', 'S', 'M', 'L', 'XL'];
+
+  constructor(
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.chargerCommandes();
     this.chargerClients();
     this.chargerStats();
+    this.chargerStocks();
   }
 
   chargerCommandes() {
@@ -44,6 +53,36 @@ export class Admin implements OnInit {
   chargerStats() {
     this.http.get<any>(`${this.apiUrl}/api/admin/stats`).subscribe({
       next: (data) => this.stats = data,
+      error: (err) => console.error(err)
+    });
+  }
+
+  chargerStocks() {
+    this.http.get<any[]>(`${this.apiUrl}/api/stocks`).subscribe({
+      next: (data) => {
+        this.stocks = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  getStock(produit: string, taille: string): number {
+    const stock = this.stocks.find(s => s.produit_nom === produit && s.taille === taille);
+    return stock ? stock.quantite : 0;
+  }
+
+  modifierStock(produit: string, taille: string, quantite: number) {
+    if (quantite < 0) quantite = 0;
+    this.http.put(`${this.apiUrl}/api/stocks/${encodeURIComponent(produit)}/${taille}`, { quantite }).subscribe({
+      next: () => {
+        const index = this.stocks.findIndex(s => s.produit_nom === produit && s.taille === taille);
+        if (index !== -1) {
+          this.stocks[index] = { ...this.stocks[index], quantite };
+          this.stocks = [...this.stocks];
+          this.cdr.detectChanges();
+        }
+      },
       error: (err) => console.error(err)
     });
   }

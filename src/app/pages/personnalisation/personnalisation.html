@@ -50,10 +50,15 @@
     </div>
 
     <div class="perso-footer">
-      <button class="btn-payer" (click)="passerAuPaiement()" [disabled]="chargement">
-        {{ chargement ? 'Redirection...' : 'Passer au paiement →' }}
-      </button>
+  @if (erreurStock) {
+    <div class="erreur-stock">
+      ⚠️ {{ erreurStock }}
     </div>
+  }
+  <button class="btn-payer" (click)="passerAuPaiement()" [disabled]="chargement">
+    {{ chargement ? 'Vérification des stocks...' : 'Passer au paiement →' }}
+  </button>
+</div>
 
   </div>
 </div>

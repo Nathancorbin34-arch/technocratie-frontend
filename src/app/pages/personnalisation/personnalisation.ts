@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PanierService, PanierItem } from '../../services/panier';
+import { StocksService } from '../../services/stocks';
 import { environment } from '../../../environments/environment';
 
 interface PersonnalisationItem {
@@ -23,13 +24,15 @@ export class Personnalisation implements OnInit {
   personnalisations: PersonnalisationItem[] = [];
   appliquerATous = false;
   chargement = false;
+  erreurStock: string = '';
 
   private apiUrl = environment.apiUrl;
 
   constructor(
     private panierService: PanierService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private stocksService: StocksService
   ) {}
 
   ngOnInit() {
@@ -72,20 +75,43 @@ export class Personnalisation implements OnInit {
 
   passerAuPaiement() {
     this.chargement = true;
-    const items = this.personnalisations.map(p => ({
-      ...p.item,
-      surnom: p.surnom,
-      numero: p.numero
-    }));
+    this.erreurStock = '';
 
-    this.http.post<any>(`${this.apiUrl}/api/paiement/creer-session`, {
-      items
-    }).subscribe({
+    const items = this.panierService.getItems();
+
+    // Vérifier les stocks avant de payer
+    this.stocksService.verifierDisponibilite(items).subscribe({
       next: (res) => {
-        window.location.href = res.url;
+        if (!res.disponible) {
+          const msgs = res.indisponibles.map((i: any) =>
+            `${i.nom} taille ${i.taille} : seulement ${i.disponible} disponible(s)`
+          );
+          this.erreurStock = msgs.join(' / ');
+          this.chargement = false;
+          return;
+        }
+
+        // Stocks OK → créer la session Stripe
+        const itemsPersonnalises = this.personnalisations.map(p => ({
+          ...p.item,
+          surnom: p.surnom,
+          numero: p.numero
+        }));
+
+        this.http.post<any>(`${this.apiUrl}/api/paiement/creer-session`, {
+          items: itemsPersonnalises
+        }).subscribe({
+          next: (res) => {
+            window.location.href = res.url;
+          },
+          error: (err) => {
+            this.erreurStock = err.error?.message || 'Erreur lors du paiement';
+            this.chargement = false;
+          }
+        });
       },
       error: (err) => {
-        console.error('Erreur paiement:', err);
+        this.erreurStock = err.error?.message || 'Erreur lors de la vérification des stocks';
         this.chargement = false;
       }
     });

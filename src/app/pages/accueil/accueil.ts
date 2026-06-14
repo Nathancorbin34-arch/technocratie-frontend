@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PanierService } from '../../services/panier';
 import { StocksService } from '../../services/stocks';
@@ -13,7 +13,8 @@ export class Accueil implements OnInit {
 
   constructor(
     private panierService: PanierService,
-    private stocksService: StocksService
+    private stocksService: StocksService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   toast: { message: string, type: 'success' | 'error' } | null = null;
@@ -58,7 +59,10 @@ export class Accueil implements OnInit {
 
   ngOnInit() {
     this.stocksService.getStocks().subscribe({
-      next: (stocks) => this.stocks = stocks,
+      next: (stocks) => {
+        this.stocks = stocks;
+        this.cdr.detectChanges();
+      },
       error: (err) => console.error('Erreur stocks:', err)
     });
   }
@@ -121,6 +125,7 @@ export class Accueil implements OnInit {
 
   ajouterAuPanier(productIndex: number) {
     const p = this.products[productIndex];
+    console.log('Stocks:', this.stocks.length, 'Stock dispo:', this.getStock(p.nom, p.tailleSelectionnee || ''));
     if (!p.tailleSelectionnee) {
       this.afficherToast('Sélectionne une taille avant d\'ajouter au panier !', 'error');
       return;
@@ -129,6 +134,18 @@ export class Accueil implements OnInit {
       this.afficherToast(`${p.nom} en ${p.tailleSelectionnee} n'est plus disponible !`, 'error');
       return;
     }
+
+    const dejaDansPanier = this.panierService.getItems()
+      .filter(i => i.nom === p.nom && i.taille === p.tailleSelectionnee)
+      .reduce((total, i) => total + i.quantite, 0);
+
+    const stockDispo = this.getStock(p.nom, p.tailleSelectionnee);
+
+    if (dejaDansPanier + 1 > stockDispo) {
+      this.afficherToast(`Stock insuffisant ! Il ne reste que ${stockDispo} ${p.nom} en ${p.tailleSelectionnee}`, 'error');
+      return;
+    }
+
     this.panierService.ajouterAuPanier({
       id: p.id,
       nom: p.nom,

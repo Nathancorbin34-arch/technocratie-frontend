@@ -207,3 +207,112 @@
 .client-date {
   color: var(--text-muted);
 }
+/* ─── STOCKS ─── */
+.stocks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.stock-produit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.stock-produit-nom {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #fff, rgba(184,146,255,0.85));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.stock-tailles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.stock-ligne {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.stock-taille-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  width: 24px;
+}
+
+.stock-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stock-btn {
+  background: rgba(122,60,255,0.2);
+  border: 1px solid rgba(122,60,255,0.4);
+  color: var(--purple-pale);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stock-btn:hover {
+  background: rgba(122,60,255,0.4);
+}
+
+.stock-input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  color: white;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  width: 60px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.stock-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-left: auto;
+}
+
+.stock-ok {
+  background: rgba(0,200,100,0.15);
+  border: 1px solid rgba(0,200,100,0.3);
+  color: #00c864;
+}
+
+.stock-zero {
+  background: rgba(255,60,60,0.15);
+  border: 1px solid rgba(255,60,60,0.3);
+  color: #ff3c3c;
+}
+
+@media (max-width: 768px) {
+  .stocks-grid {
+    grid-template-columns: 1fr;
+  }
+}

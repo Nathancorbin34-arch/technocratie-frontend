@@ -223,3 +223,14 @@
     padding: 14px;
   }
 }
+.erreur-stock {
+  background: rgba(255,60,60,0.1);
+  border: 1px solid rgba(255,60,60,0.3);
+  color: #ff3c3c;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
