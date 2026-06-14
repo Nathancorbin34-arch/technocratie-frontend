@@ -1,0 +1,68 @@
+.confirmation-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-deep, #030305);
+  font-family: 'Syne', sans-serif;
+}
+
+.confirmation-card {
+  text-align: center;
+  padding: 3rem 2rem;
+  border: 1px solid var(--purple-core, #7a3cff);
+  border-radius: 12px;
+  max-width: 480px;
+  width: 90%;
+}
+
+.check-icon {
+  font-size: 4rem;
+  color: var(--purple-core, #7a3cff);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+}
+
+.merci {
+  color: var(--purple-pale, #b892ff);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.detail {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.session {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: #555;
+  margin-bottom: 2rem;
+  word-break: break-all;
+}
+
+.btn-retour {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--purple-core, #7a3cff);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+  transition: opacity 0.2s;
+}
+
+.btn-retour:hover {
+  opacity: 0.8;
+}

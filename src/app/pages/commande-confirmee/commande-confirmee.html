@@ -1,0 +1,12 @@
+<div class="confirmation-container">
+  <div class="confirmation-card">
+    <div class="check-icon">✓</div>
+    <h1>Commande confirmée !</h1>
+    <p class="merci">Merci pour ta commande 🎉</p>
+    <p class="detail">Tu vas recevoir un email de confirmation sous peu.</p>
+    <div class="session" *ngIf="sessionId">
+      <span>Référence : {{ sessionId }}</span>
+    </div>
+    <a routerLink="/" class="btn-retour">Retour à l'accueil</a>
+  </div>
+</div>
