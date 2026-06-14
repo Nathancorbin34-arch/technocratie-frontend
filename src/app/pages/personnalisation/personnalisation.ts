@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PanierService, PanierItem } from '../../services/panier';
 import { StocksService } from '../../services/stocks';
+import { ParametresService } from '../../services/parametres';
 import { environment } from '../../../environments/environment';
 
 interface PersonnalisationItem {
@@ -33,6 +34,7 @@ export class Personnalisation implements OnInit {
     private router: Router,
     private http: HttpClient,
     private stocksService: StocksService,
+    private parametresService: ParametresService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -78,50 +80,66 @@ export class Personnalisation implements OnInit {
     this.chargement = true;
     this.erreurStock = '';
 
-    const items = this.panierService.getItems();
-
-    this.stocksService.verifierDisponibilite(items).subscribe({
-      next: (res) => {
-        if (!res.disponible) {
-          const msgs = res.indisponibles.map((i: any) =>
-            `${i.nom} taille ${i.taille} : seulement ${i.disponible} disponible(s)`
-          );
-          this.erreurStock = msgs.join(' / ');
+    // 1. Vérifier si les commandes sont ouvertes
+    this.parametresService.getParametres().subscribe({
+      next: (data) => {
+        if (!data.commandes_ouvertes) {
+          this.erreurStock = 'Les commandes ne sont pas ouvertes pour le moment !';
           this.chargement = false;
           this.cdr.detectChanges();
           return;
         }
 
-        const itemsPersonnalises = this.personnalisations.map(p => ({
-          ...p.item,
-          surnom: p.surnom,
-          numero: p.numero
-        }));
-
-        this.http.post<any>(`${this.apiUrl}/api/paiement/creer-session`, {
-          items: itemsPersonnalises
-        }).subscribe({
+        // 2. Vérifier les stocks
+        const items = this.panierService.getItems();
+        this.stocksService.verifierDisponibilite(items).subscribe({
           next: (res) => {
-            window.location.href = res.url;
+            if (!res.disponible) {
+              const msgs = res.indisponibles.map((i: any) =>
+                `${i.nom} taille ${i.taille} : seulement ${i.disponible} disponible(s)`
+              );
+              this.erreurStock = msgs.join(' / ');
+              this.chargement = false;
+              this.cdr.detectChanges();
+              return;
+            }
+
+            // 3. Créer la session Stripe
+            const itemsPersonnalises = this.personnalisations.map(p => ({
+              ...p.item,
+              surnom: p.surnom,
+              numero: p.numero
+            }));
+
+            this.http.post<any>(`${this.apiUrl}/api/paiement/creer-session`, {
+              items: itemsPersonnalises
+            }).subscribe({
+              next: (res) => {
+                window.location.href = res.url;
+              },
+              error: (err) => {
+                this.erreurStock = err.error?.message || 'Erreur lors du paiement';
+                this.chargement = false;
+                this.cdr.detectChanges();
+              }
+            });
           },
           error: (err) => {
-            this.erreurStock = err.error?.message || 'Erreur lors du paiement';
+            if (err.error?.indisponibles) {
+              const msgs = err.error.indisponibles.map((i: any) =>
+                `${i.nom} taille ${i.taille} : seulement ${i.disponible} disponible(s)`
+              );
+              this.erreurStock = msgs.join(' / ');
+            } else {
+              this.erreurStock = err.error?.message || 'Stock insuffisant !';
+            }
             this.chargement = false;
             this.cdr.detectChanges();
           }
         });
       },
-      error: (err) => {
-        console.log('Erreur complète:', err);
-        console.log('err.error:', err.error);
-        if (err.error?.indisponibles) {
-          const msgs = err.error.indisponibles.map((i: any) =>
-            `${i.nom} taille ${i.taille} : seulement ${i.disponible} disponible(s)`
-          );
-          this.erreurStock = msgs.join(' / ');
-        } else {
-          this.erreurStock = err.error?.message || 'Stock insuffisant !';
-        }
+      error: () => {
+        this.erreurStock = 'Erreur de connexion au serveur';
         this.chargement = false;
         this.cdr.detectChanges();
       }
