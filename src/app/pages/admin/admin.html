@@ -46,26 +46,44 @@
     </div>
 
     <!-- Commandes -->
-    @if (onglet === 'commandes') {
-      <div class="admin-table-container">
-        @if (commandes.length === 0) {
-          <p class="empty-msg">Aucune commande pour le moment</p>
-        }
-        @for (commande of commandes; track commande.id) {
-          <div class="commande-card">
-            <div class="commande-header">
-              <span class="commande-id">#{{ commande.id }}</span>
-              <span class="commande-date">{{ commande.date_commande | date:'dd/MM/yyyy HH:mm' }}</span>
-              <span class="commande-statut" [class]="commande.statut">{{ commande.statut }}</span>
-              <span class="commande-total">{{ commande.total }} €</span>
-            </div>
-            <div class="commande-client">
-              👤 {{ commande.prenom }} {{ commande.nom }} — {{ commande.email }}
-            </div>
+@if (onglet === 'commandes') {
+  <div class="admin-table-container">
+    @if (commandes.length === 0) {
+      <p class="empty-msg">Aucune commande pour le moment</p>
+    }
+    @for (commande of commandes; track commande.id) {
+      <div class="commande-card">
+        <div class="commande-header">
+          <span class="commande-id">#{{ commande.id }}</span>
+          <span class="commande-date">{{ commande.date_commande | date:'dd/MM/yyyy HH:mm' }}</span>
+          <span class="commande-statut" [class]="commande.statut">{{ commande.statut }}</span>
+          <span class="commande-total">{{ commande.total }} €</span>
+        </div>
+        <div class="commande-client">
+          👤 {{ commande.prenom }} {{ commande.nom }} — {{ commande.email }}
+        </div>
+        @if (commande.produits && commande.produits.length > 0) {
+          <div class="commande-produits">
+            @for (produit of commande.produits; track $index) {
+              <div class="commande-produit-ligne">
+  <span class="cp-nom">{{ produit.nom }}</span>
+  <span class="cp-taille">Taille {{ produit.taille }}</span>
+  <span class="cp-quantite">x{{ produit.quantite }}</span>
+  @if (produit.surnom) {
+    <span class="cp-surnom">{{ produit.surnom }}</span>
+  }
+  @if (produit.numero) {
+    <span class="cp-numero">#{{ produit.numero }}</span>
+  }
+  <span class="cp-prix">{{ produit.prix_unitaire }} €</span>
+</div>
+            }
           </div>
         }
       </div>
     }
+  </div>
+}
 
     <!-- Clients -->
     @if (onglet === 'clients') {

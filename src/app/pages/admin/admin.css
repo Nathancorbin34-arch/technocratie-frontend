@@ -372,3 +372,46 @@
 }
 
 .btn-ouvrir:hover { background: rgba(0,200,100,0.3); }
+.commande-produits {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.commande-produit-ligne {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  flex-wrap: wrap;
+}
+
+.cp-nom {
+  color: white;
+  flex: 1;
+}
+
+.cp-taille {
+  color: var(--purple-pale);
+}
+
+.cp-quantite {
+  color: var(--text-muted);
+}
+
+.cp-prix {
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+.cp-surnom {
+  color: var(--purple-pale);
+  font-style: italic;
+}
+
+.cp-numero {
+  color: var(--purple-pale);
+}
