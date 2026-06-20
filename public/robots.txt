@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /mes-commandes
+Disallow: /panier
+Disallow: /personnalisation
+
+Sitemap: https://technocratie-wear.fr/sitemap.xml
