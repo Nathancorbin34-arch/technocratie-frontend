@@ -29,28 +29,28 @@ export class Accueil implements OnInit {
       id: 1,
       nom: 'Maillot Technocratie',
       prix: '44,99 €',
-      images: ['assets/images/technocratie-front.jpg', 'assets/images/technocratie-back.jpg'],
+      images: ['assets/images/technocratie-front.webp', 'assets/images/technocratie-back.webp'],
       tailleSelectionnee: ''
     },
     {
       id: 2,
       nom: 'Rawcratie',
       prix: '44,99 €',
-      images: ['assets/images/rawcratie-front.jpg', 'assets/images/rawcratie-back.jpg'],
+      images: ['assets/images/rawcratie-front.webp', 'assets/images/rawcratie-back.webp'],
       tailleSelectionnee: ''
     },
     {
       id: 3,
       nom: 'Uptempocratie',
       prix: '44,99 €',
-      images: ['assets/images/uptempocratie-front.jpg', 'assets/images/uptempocratie-back.jpg'],
+      images: ['assets/images/uptempocratie-front.webp', 'assets/images/uptempocratie-back.webp'],
       tailleSelectionnee: ''
     },
     {
       id: 4,
       nom: 'Zaagocratie',
       prix: '44,99 €',
-      images: ['assets/images/zaagocratie-front.jpg', 'assets/images/zaagocratie-back.jpg'],
+      images: ['assets/images/zaagocratie-front.webp', 'assets/images/zaagocratie-back.webp'],
       tailleSelectionnee: ''
     }
   ];
