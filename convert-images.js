@@ -3,17 +3,21 @@ const fs = require('fs');
 const path = require('path');
 
 const dossier = './src/assets/images';
-const fichiers = fs.readdirSync(dossier).filter(f => f.endsWith('.jpg') || f.endsWith('.jpeg'));
+const fichiers = fs.readdirSync(dossier).filter(f => 
+  (f.endsWith('.jpg') || f.endsWith('.jpeg') || f.endsWith('.png')) && f !== 'Logo-technocratie.png'
+);
 
 async function convertir() {
   for (const fichier of fichiers) {
     const cheminEntree = path.join(dossier, fichier);
-    const nomSansExtension = fichier.replace(/\.(jpg|jpeg)$/i, '');
+    const nomSansExtension = fichier.replace(/\.(jpg|jpeg|png)$/i, '');
     const cheminSortie = path.join(dossier, `${nomSansExtension}.webp`);
 
+    if (fs.existsSync(cheminSortie)) continue;
+
     await sharp(cheminEntree)
-      .resize(800)
-      .webp({ quality: 78 })
+      .resize(1200)
+      .webp({ quality: 75 })
       .toFile(cheminSortie);
 
     const tailleAvant = fs.statSync(cheminEntree).size;
