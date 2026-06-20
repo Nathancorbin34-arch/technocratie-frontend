@@ -26,6 +26,9 @@
         <input type="password" placeholder="••••••••" [(ngModel)]="loginPassword" />
       </div>
       <button class="btn-submit" (click)="seConnecter()">Se connecter</button>
+      <p class="form-link">
+  <a routerLink="/mot-de-passe-oublie">Mot de passe oublié ?</a>
+</p>
       <p class="form-link">Pas encore de compte ?
         <span (click)="mode = 'inscription'">Créer un compte</span>
       </p>

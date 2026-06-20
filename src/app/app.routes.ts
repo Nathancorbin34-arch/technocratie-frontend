@@ -11,6 +11,8 @@ import { CommandesFermees } from './pages/commandes-fermees/commandes-fermees';
 import { MesCommandes } from './pages/mes-commandes/mes-commandes';
 import { MentionsLegales } from './pages/mentions-legales/mentions-legales';
 import { Cgv } from './pages/cgv/cgv';
+import { MotDePasseOublie } from './pages/mot-de-passe-oublie/mot-de-passe-oublie';
+import { ReinitialiserMotDePasse } from './pages/reinitialiser-mot-de-passe/reinitialiser-mot-de-passe';
 
 export const routes: Routes = [
   { path: '', component: Accueil },
@@ -23,4 +25,6 @@ export const routes: Routes = [
   { path: 'mes-commandes', component: MesCommandes, canActivate: [authGuard] },
   { path: 'mentions-legales', component: MentionsLegales },
   { path: 'cgv', component: Cgv },
+  { path: 'mot-de-passe-oublie', component: MotDePasseOublie },
+{ path: 'reinitialiser-mot-de-passe', component: ReinitialiserMotDePasse },
 ];

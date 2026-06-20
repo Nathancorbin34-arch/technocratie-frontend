@@ -1,0 +1,43 @@
+<div class="forgot-page">
+  <div class="forgot-container">
+
+    <div class="forgot-logo">
+      <span class="logo-tc">TC</span>
+      <span class="logo-nom">TECHNOCRATIE</span>
+    </div>
+
+    @if (!succes) {
+      <h1 class="forgot-titre">Nouveau mot de passe</h1>
+      <p class="forgot-sub">Choisis un nouveau mot de passe pour ton compte.</p>
+
+      <div class="form-group">
+        <label>Nouveau mot de passe</label>
+        <input type="password" placeholder="••••••••" [(ngModel)]="nouveauMotDePasse" />
+      </div>
+
+      <div class="form-group">
+        <label>Confirme le mot de passe</label>
+        <input type="password" placeholder="••••••••" [(ngModel)]="confirmationMotDePasse" />
+      </div>
+
+      @if (message) {
+        <p class="message-erreur">⚠️ {{ message }}</p>
+      }
+
+      <button class="btn-submit" (click)="reinitialiser()" [disabled]="chargement">
+        {{ chargement ? 'Réinitialisation...' : 'Réinitialiser le mot de passe' }}
+      </button>
+    } @else {
+      <div class="confirmation-envoi">
+        <div class="check-icon">✓</div>
+        <h1 class="forgot-titre">Mot de passe modifié !</h1>
+        <p class="forgot-sub">Tu vas être redirigé vers la page de connexion...</p>
+      </div>
+    }
+
+    <p class="form-link">
+      <a routerLink="/connexion">← Retour à la connexion</a>
+    </p>
+
+  </div>
+</div>

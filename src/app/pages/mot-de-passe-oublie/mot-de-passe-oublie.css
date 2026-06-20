@@ -1,0 +1,132 @@
+.forgot-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-deep, #030305);
+  padding: 6rem 2rem 2rem;
+}
+
+.forgot-container {
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+.forgot-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.logo-tc {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--purple-pale, #b892ff);
+}
+
+.logo-nom {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  color: white;
+}
+
+.forgot-titre {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  color: white;
+  margin-bottom: 0.8rem;
+}
+
+.forgot-sub {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--purple-core, #7a3cff);
+}
+
+.message-erreur {
+  color: #ff3c3c;
+  background: rgba(255,60,60,0.1);
+  border: 1px solid rgba(255,60,60,0.3);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, var(--purple-core, #7a3cff), var(--purple-pale, #b892ff));
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-submit:hover { opacity: 0.85; }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.confirmation-envoi {
+  padding: 1rem 0;
+}
+
+.check-icon {
+  font-size: 3rem;
+  color: var(--purple-core, #7a3cff);
+  margin-bottom: 1rem;
+}
+
+.form-link {
+  margin-top: 2rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+}
+
+.form-link a {
+  color: var(--purple-pale, #b892ff);
+  text-decoration: none;
+}
+
+.form-link a:hover { color: white; }
