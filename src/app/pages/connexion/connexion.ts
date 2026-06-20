@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -34,7 +34,8 @@ export class Connexion {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   seConnecter() {
@@ -49,6 +50,7 @@ export class Connexion {
       },
       error: (err) => {
         this.messageErreur = err.error.message || 'Erreur de connexion';
+        this.cdr.detectChanges();
       }
     });
   }
@@ -71,6 +73,7 @@ export class Connexion {
       },
       error: (err) => {
         this.messageErreur = err.error.message || 'Erreur lors de la création du compte';
+        this.cdr.detectChanges();
       }
     });
   }

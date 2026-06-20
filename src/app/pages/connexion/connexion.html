@@ -73,6 +73,8 @@
         <span (click)="mode = 'connexion'">Se connecter</span>
       </p>
     </div>
-
+@if (messageErreur) {
+  <p class="message-erreur">⚠️ {{ messageErreur }}</p>
+}
   </div>
 </div>
