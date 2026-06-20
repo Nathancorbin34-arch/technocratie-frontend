@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -33,6 +33,11 @@ export class Admin implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
+  }
+
   ngOnInit() {
     this.chargerCommandes();
     this.chargerClients();
@@ -55,13 +60,12 @@ export class Admin implements OnInit {
 
   toggleCommandes() {
     const nouvelEtat = !this.commandesOuvertes;
-    this.http.put(`${this.apiUrl}/api/admin/parametres/commandes`, { ouvert: nouvelEtat }).subscribe({
+    this.http.put(`${this.apiUrl}/api/admin/parametres/commandes`, { ouvert: nouvelEtat }, { headers: this.getAuthHeaders() }).subscribe({
       next: () => {
         this.commandesOuvertes = nouvelEtat;
-        // Réinitialiser les dates si on bascule manuellement
         this.dateOuverture = '';
         this.dateFermeture = '';
-        this.http.put(`${this.apiUrl}/api/admin/parametres/dates`, { date_ouverture: '', date_fermeture: '' }).subscribe();
+        this.http.put(`${this.apiUrl}/api/admin/parametres/dates`, { date_ouverture: '', date_fermeture: '' }, { headers: this.getAuthHeaders() }).subscribe();
         this.cdr.detectChanges();
       },
       error: (err) => console.error(err)
@@ -82,7 +86,7 @@ export class Admin implements OnInit {
     this.http.put(`${this.apiUrl}/api/admin/parametres/dates`, {
       date_ouverture: this.dateOuverture,
       date_fermeture: this.dateFermeture
-    }).subscribe({
+    }, { headers: this.getAuthHeaders() }).subscribe({
       next: () => {
         this.messageCalendrier = '✓ Planification sauvegardée !';
         this.chargerParametres();
@@ -96,7 +100,7 @@ export class Admin implements OnInit {
   effacerDates() {
     this.dateOuverture = '';
     this.dateFermeture = '';
-    this.http.put(`${this.apiUrl}/api/admin/parametres/dates`, { date_ouverture: '', date_fermeture: '' }).subscribe({
+    this.http.put(`${this.apiUrl}/api/admin/parametres/dates`, { date_ouverture: '', date_fermeture: '' }, { headers: this.getAuthHeaders() }).subscribe({
       next: () => {
         this.messageCalendrier = 'Planification effacée';
         this.cdr.detectChanges();
@@ -106,25 +110,26 @@ export class Admin implements OnInit {
   }
 
   exporterPDF() {
-    window.open(`${this.apiUrl}/api/export/commandes-pdf`, '_blank');
+    const token = localStorage.getItem('token');
+    window.open(`${this.apiUrl}/api/export/commandes-pdf?token=${token}`, '_blank');
   }
 
   chargerCommandes() {
-    this.http.get<any[]>(`${this.apiUrl}/api/admin/commandes`).subscribe({
+    this.http.get<any[]>(`${this.apiUrl}/api/admin/commandes`, { headers: this.getAuthHeaders() }).subscribe({
       next: (data) => this.commandes = data,
       error: (err) => console.error(err)
     });
   }
 
   chargerClients() {
-    this.http.get<any[]>(`${this.apiUrl}/api/admin/clients`).subscribe({
+    this.http.get<any[]>(`${this.apiUrl}/api/admin/clients`, { headers: this.getAuthHeaders() }).subscribe({
       next: (data) => this.clients = data,
       error: (err) => console.error(err)
     });
   }
 
   chargerStats() {
-    this.http.get<any>(`${this.apiUrl}/api/admin/stats`).subscribe({
+    this.http.get<any>(`${this.apiUrl}/api/admin/stats`, { headers: this.getAuthHeaders() }).subscribe({
       next: (data) => this.stats = data,
       error: (err) => console.error(err)
     });
@@ -147,7 +152,7 @@ export class Admin implements OnInit {
 
   modifierStock(produit: string, taille: string, quantite: number) {
     if (quantite < 0) quantite = 0;
-    this.http.put(`${this.apiUrl}/api/stocks/${encodeURIComponent(produit)}/${taille}`, { quantite }).subscribe({
+    this.http.put(`${this.apiUrl}/api/stocks/${encodeURIComponent(produit)}/${taille}`, { quantite }, { headers: this.getAuthHeaders() }).subscribe({
       next: () => {
         const index = this.stocks.findIndex(s => s.produit_nom === produit && s.taille === taille);
         if (index !== -1) {
@@ -159,23 +164,24 @@ export class Admin implements OnInit {
       error: (err) => console.error(err)
     });
   }
-envoyerSuivi(commandeId: number, email: string) {
-  const numeroSuivi = prompt('Numéro de suivi :');
-  if (!numeroSuivi) return;
-  
-  const transporteurs = ['Colissimo', 'Chronopost', 'Mondial Relay', 'DHL', 'UPS', 'Autre'];
-  const choix = prompt(`Transporteur :\n${transporteurs.map((t, i) => `${i+1}. ${t}`).join('\n')}\n\nEntrez le numéro (1-${transporteurs.length}) :`);
-  const transporteur = transporteurs[parseInt(choix || '1') - 1] || 'Colissimo';
-  
-  this.http.post(`${this.apiUrl}/api/admin/commandes/${commandeId}/envoyer-suivi`, {
-    numeroSuivi,
-    transporteur
-  }).subscribe({
-    next: () => {
-      alert(`✓ Email de suivi envoyé ! (${transporteur})`);
-      this.chargerCommandes();
-    },
-    error: (err) => alert('Erreur : ' + err.error?.message)
-  });
-}
+
+  envoyerSuivi(commandeId: number, email: string) {
+    const numeroSuivi = prompt('Numéro de suivi :');
+    if (!numeroSuivi) return;
+
+    const transporteurs = ['Colissimo', 'Chronopost', 'Mondial Relay', 'DHL', 'UPS', 'Autre'];
+    const choix = prompt(`Transporteur :\n${transporteurs.map((t, i) => `${i+1}. ${t}`).join('\n')}\n\nEntrez le numéro (1-${transporteurs.length}) :`);
+    const transporteur = transporteurs[parseInt(choix || '1') - 1] || 'Colissimo';
+
+    this.http.post(`${this.apiUrl}/api/admin/commandes/${commandeId}/envoyer-suivi`, {
+      numeroSuivi,
+      transporteur
+    }, { headers: this.getAuthHeaders() }).subscribe({
+      next: () => {
+        alert(`✓ Email de suivi envoyé ! (${transporteur})`);
+        this.chargerCommandes();
+      },
+      error: (err) => alert('Erreur : ' + err.error?.message)
+    });
+  }
 }
