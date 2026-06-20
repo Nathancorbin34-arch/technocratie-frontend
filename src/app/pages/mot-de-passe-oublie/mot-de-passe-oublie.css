@@ -21,11 +21,11 @@
   margin-bottom: 2rem;
 }
 
-.logo-tc {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
-  color: var(--purple-pale, #b892ff);
+.logo-img-forgot {
+  height: 32px;
+  width: auto;
 }
+
 
 .logo-nom {
   font-family: 'Bebas Neue', sans-serif;
