@@ -2,7 +2,7 @@
   <div class="overlay"></div>
   <div class="hero-grid"></div>
   <div class="hero-logo-bg">
-    <img src="assets/images/logo-bg.webp" alt="" class="hero-logo-glow" />
+    <img src="assets/images/logo-bg.webp" alt="" class="hero-logo-glow" width="1200" height="1200" fetchpriority="high" />
   </div>
   <div class="hero-content">
     <p class="top-text">Collection officielle</p>
@@ -29,9 +29,9 @@
           <div class="product-image-track"
                (touchstart)="onTouchStart($event, i)"
                (touchend)="onTouchEnd($event, i)">
-            <img [src]="product.images[0]" [alt]="product.nom" class="main-product-image" />
-            <img [src]="product.images[1]" [alt]="product.nom" class="main-product-image" />
-            <img [src]="product.images[activeImages[i]]" [alt]="product.nom" class="main-product-image" />
+            <img [src]="product.images[0]" [alt]="product.nom" class="main-product-image" width="800" height="1067" />
+            <img [src]="product.images[1]" [alt]="product.nom" class="main-product-image" width="800" height="1067" />
+            <img [src]="product.images[activeImages[i]]" [alt]="product.nom" class="main-product-image" width="800" height="1067" />
           </div>
           <button class="slider-arrow slider-arrow-right" (click)="nextImage(i)">&#8250;</button>
           <div class="product-badges"><span>{{ activeImages[i] === 0 ? 'Face' : 'Dos' }}</span></div>
