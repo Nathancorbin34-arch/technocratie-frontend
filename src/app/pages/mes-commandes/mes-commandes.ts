@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -17,21 +17,30 @@ export class MesCommandes implements OnInit {
   chargement = true;
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!token) {
+      this.chargement = false;
+      this.cdr.detectChanges();
+      return;
+    }
 
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
     this.http.get<any[]>(`${this.apiUrl}/api/auth/mes-commandes`, { headers }).subscribe({
       next: (data) => {
         this.commandes = data;
         this.chargement = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
         this.chargement = false;
+        this.cdr.detectChanges();
       }
     });
   }
